@@ -12,8 +12,19 @@ public class CardTable extends JFrame
 
     public JPanel pnlComputerHand, getPnlHumanHand, pnlPlayArea;
 
-    public CardTable()
+    public CardTable(String title, int numCardsPerHand, int numPlayers)
     {
 
     }
+
+    public int getNumCardsPerHand()
+    {
+        return numCardsPerHand;
+    }
+
+    public int getNumPlayers()
+    {
+        return numPlayers;
+    }
+
 }
