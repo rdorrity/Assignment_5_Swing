@@ -21,7 +21,7 @@ public class Module5 {
    private static String[] filenames = new String[NUM_CARD_IMAGES];
    private static String[] cardValues = {"A", "2", "3", "4", "5", "6", "7",
         "8", "9", "T", "J", "Q", "K", "X"};    // "X" cards are jokers
-   private static String[] cardSuits = {"C", "D", "H", "S"};
+   private static String[] cardSuits = {"H", "S", "D", "C"};
 
 
    // Builds Card GIF file names
