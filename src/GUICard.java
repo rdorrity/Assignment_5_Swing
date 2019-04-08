@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class GUICard extends Module5
+public class GUICard
 {
    // Instance variables
    private static final int cardSuits = 4;
@@ -17,7 +17,7 @@ public class GUICard extends Module5
     */
    private static void loadCardIcons()
    {
-      if (iconCards == null)
+      if (!iconsLoaded)
       {
          for (int i = 0; i < cardSuits; i++)
             for (int j = 0; j < cardValues; j++)
@@ -34,7 +34,7 @@ public class GUICard extends Module5
     */
    public static Icon getIcon(Card card)
    {
-
+      //return iconCards[valueToInt(card)][suitToInt(card)]
    }
 
    /**
@@ -44,6 +44,26 @@ public class GUICard extends Module5
    public static Icon getBackCardIcon()
    {
       return iconBack;
+   }
+
+   /**
+    * Converts a Card object's value to an int.
+    * @param card
+    * @return Card value as int
+    */
+   private static int valueToInt(Card card)
+   {
+
+   }
+
+   /**
+    * Converts a Card object's suit to an int.
+    * @param card
+    * @return Card suit as int
+    */
+   private static int suitToInt(Card card)
+   {
+
    }
 
 }
