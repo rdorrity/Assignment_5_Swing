@@ -81,8 +81,8 @@ public class GUICard
     */
    private static int valueToInt(Card card)
    {
-      // Use Card class's method to get the value of Card
-      int value = card.getValue();
+      // Use Card class's method to get the value of Card, cast char to int
+      int value = Character.getNumericValue(card.getValue());
 
       // If the Card object's value matches the value in cardValues, return
       // the index value, else return nothing
