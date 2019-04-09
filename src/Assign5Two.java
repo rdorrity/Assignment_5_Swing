@@ -1,4 +1,6 @@
+import javax.swing.*;
 import java.util.*;
+import java.awt.*;
 
 public class Assign5Two {
     static Card generateRandomCard() {
@@ -10,7 +12,7 @@ public class Assign5Two {
 
 class Card {
 
-    public enum Suit {clubs, diamonds, hearts, spades}
+    public enum Suit {hearts, spades, diamonds, clubs}
     public static Map<Character, Integer> valueRanks = new HashMap<>();
     private Suit suit;
     private char value;
@@ -74,6 +76,20 @@ class Card {
         return false;
     }
 
+    // Insertion Sort version
+    static void arraySort(Card[] cards) {
+        for (int i = 1; i < cards.length; i++) {
+            Card current = cards[i];
+            int j = i;
+            for (; j >= 0 && valueRanks.get(cards[j].value) > valueRanks.get(current.value); j--) {
+                cards[j + 1] = cards[j];
+            }
+            cards[j + 1] = current;
+        }
+    }
+
+    // Quicksort version
+    /*
     static void arraySort(Card[] cards) {
         arrayQuickSort(cards, 0, cards.length - 1);
     }
@@ -108,6 +124,7 @@ class Card {
         cards[firstCard] = cards[secondCard];
         cards[secondCard] = holder;
     }
+    */
 
     private static void setValueRanks() {
         if (valueRanks.size() > 0)
@@ -300,4 +317,68 @@ class Deck {
         }
     }
 
+}
+
+class GUICard2 {
+
+    private static Icon[][] iconCards = new ImageIcon[14][4];
+    private static Icon iconBack;
+    static boolean iconsLoaded = false;
+
+    static void loadCardIcons() {
+        if (iconsLoaded)
+            return;
+        for (int i = 0; i < iconCards.length; i++) {
+            for (int j = 0; j < iconCards[i].length; j++) {
+                String filename = intToCardValue(i) + intToCardSuit(j) + ".gif";
+                ImageIcon cardIcon = new ImageIcon("images/" + filename);
+                iconCards[i][j] = cardIcon;
+            }
+        }
+        iconBack = new ImageIcon("images/BK.gif");
+        iconsLoaded = true;
+    }
+
+    static String intToCardValue(int valAsInt) {
+        String cardValue = "";
+        for (Character i : Card.valueRanks.keySet()) {
+            if (Card.valueRanks.get(i) == valAsInt)
+                cardValue = i.toString();
+        }
+        return cardValue;
+    }
+
+    static String intToCardSuit(int suitAsInt) {
+        if (suitAsInt < 0 || suitAsInt > 3)
+            return "invalid";
+        return Card.Suit.values()[suitAsInt].toString();
+    }
+
+    private static int valueToInt(Card card) {
+        char cardVal = card.getValue();
+        if (Card.valueRanks.size() < 1 || !Card.valueRanks.containsKey(cardVal))
+            return -1;
+        return Card.valueRanks.get(cardVal);
+    }
+
+    // Don't need a guard block since Suit is an enum
+    private static int suitToInt(Card card) {
+        Card.Suit cardSuit = card.getSuit();
+        if (cardSuit == Card.Suit.hearts)
+            return 0;
+        else if (cardSuit == Card.Suit.spades)
+            return 1;
+        else if (cardSuit == Card.Suit.diamonds)
+            return 2;
+        else // It's clubs
+            return 3;
+    }
+
+    public static Icon getIcon(Card card) {
+        return iconCards[valueToInt(card)][suitToInt(card)];
+    }
+
+    public static Icon getIconBack() {
+        return iconBack;
+    }
 }
