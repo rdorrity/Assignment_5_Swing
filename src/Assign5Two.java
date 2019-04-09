@@ -54,91 +54,129 @@ public class Assign5Two {
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-       // Create JPanels, set borders and panel text
-       TitledBorder playerBorder =
-               BorderFactory.createTitledBorder("Player");
-       TitledBorder compBorder =
-               BorderFactory.createTitledBorder("Computer");
-       TitledBorder fieldBorder =
-               BorderFactory.createTitledBorder("Field");
+        // Create JPanels, set borders and panel text
+        TitledBorder playerBorder =
+                BorderFactory.createTitledBorder("Player");
+        TitledBorder compBorder =
+                BorderFactory.createTitledBorder("Computer");
+        TitledBorder fieldBorder =
+                BorderFactory.createTitledBorder("Field");
 
-       // JLabels for field labels
-       JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
-       JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
+        // JLabels for field labels
+        JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
+        JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
 
-       // Add test text labels for center playing field, replace with Cards
-       // later
-       JLabel testLabel1 = new JLabel("Card 1", JLabel.CENTER);
-       JLabel testLabel2 = new JLabel("Card 2", JLabel.CENTER);
+        // Add test text labels for center playing field, replace with Cards
+        // later
+        //JLabel testLabel1 = new JLabel("Card 1", JLabel.CENTER);
+        //JLabel testLabel2 = new JLabel("Card 2", JLabel.CENTER);
 
-       JPanel compHand = new JPanel();
-       compHand.setBorder(compBorder);
+        //JPanel compHand = new JPanel();
+        //compHand.setBorder(compBorder);
+        myCardTable.pnlComputerHand.setBorder(compBorder);
 
-       JPanel playField = new JPanel();
-       playField.setLayout(new GridLayout(2,2));
-       playField.setBorder(fieldBorder);
+        //JPanel playField = new JPanel();
+        //playField.setLayout(new GridLayout(2,2));
+        //playField.setBorder(fieldBorder);
+        myCardTable.pnlPlayArea.setBorder(fieldBorder);
 
-       JPanel playHand = new JPanel();
-       playHand.setBorder(playerBorder);
+        //JPanel playHand = new JPanel();
+        myCardTable.pnlHumanHand.setBorder(playerBorder);
 
-       // Panel for buttons/control/display info (no border)
-       JPanel controlPanel = new JPanel();
+        // Panel for buttons/control/display info (no border)
+        JPanel controlPanel = new JPanel();
 
-       // Add JPanels to main program window, set padding between panels
-       compHand.setPreferredSize(new Dimension(1366,125));
-       myCardTable.add(compHand);
-       myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
+        // Add JPanels to main program window, set padding between panels
+        myCardTable.pnlComputerHand.setPreferredSize(new Dimension(1366,125));
+        //myCardTable.add(compHand);
+        myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
-       playField.setPreferredSize(new Dimension(1366, 250));
-       myCardTable.add(playField);
-       myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
+        //playField.setPreferredSize(new Dimension(1366, 250));
+        myCardTable.pnlPlayArea.setPreferredSize(new Dimension(1366, 250));
+        //myCardTable.add(playField);
+        myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
-       playHand.setPreferredSize(new Dimension(1366, 125));
-       myCardTable.add(playHand);
-       myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
+        //playHand.setPreferredSize(new Dimension(1366, 125));
+        myCardTable.pnlHumanHand.setPreferredSize(new Dimension(1366, 125));
+        //myCardTable.add(playHand);
+        myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
-       // Add JLabel at bottom for buttons/controls/info
-       controlPanel.setPreferredSize(new Dimension(1366, 150));
-       controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
-       myCardTable.add(controlPanel);
+        // Add JLabel at bottom for buttons/controls/info
+        controlPanel.setPreferredSize(new Dimension(1366, 150));
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
+        myCardTable.add(controlPanel);
 
-       // Add buttons that do stuff
-       JButton testButton1 = new JButton("Draw Exodia");
-       JButton testButton2 = new JButton("Draw Blue Eyes White Dragon");
-       JButton testButton3 = new JButton("Start Duel");
-       JButton testButton4 = new JButton("Forfeit Duel");
+        // Add buttons that do stuff
+        JButton testButton1 = new JButton("Draw Exodia");
+        JButton testButton2 = new JButton("Draw Blue Eyes White Dragon");
+        JButton testButton3 = new JButton("Start Duel");
+        JButton testButton4 = new JButton("Forfeit Duel");
 
-       controlPanel.add(testButton1);
-       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-       controlPanel.add(testButton2);
-       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-       controlPanel.add(testButton3);
-       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-       controlPanel.add(testButton4);
-       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(testButton1);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(testButton2);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(testButton3);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(testButton4);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
 
-       // Create JLabels to hold ImageIcons
-       // Add JLabels to JPanels
+        // Create JLabels to hold ImageIcons
+        // Add JLabels to JPanels
+        GUICard2 guiCard = new GUICard2();
+        guiCard.loadCardIcons();
 
-       // Add two random cards in the play region (computer/human) and text
-       // labels
+        JLabel compCard;
+        JLabel humanCard;
+        for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
+        {
+            compCard = new JLabel(guiCard.getIconBack());
+            computerLabels[i] = compCard;
+            myCardTable.pnlComputerHand.add(computerLabels[i]);
+            humanCard = new JLabel(guiCard.getIcon(deck.dealCard()));
+            //humanCard = new JLabel(guiCard.getIconBack());
+            humanLabels[i] = humanCard;
+            myCardTable.pnlHumanHand.add(humanLabels[i]);
+        }
 
-       JLabel playerCard = new JLabel();
-       JLabel compCard = new JLabel();
 
-       //playField.add(compCard);
-       //playField.add(playerCard);
-       playField.add(testLabel1);
-       playField.add(testLabel2);
-       playField.add(compFieldLabel);
-       playField.add(playerFieldLabel);
 
-       // Display everything to screen
-       myCardTable.pack();
-       myCardTable.setVisible(true);
-       //////////////////////////////////////////////////////////////////////////
-       //////////////////////////////////////////////////////////////////////////
+        // Add two random cards in the play region (computer/human) and text
+        // labels
+        JLabel compPlayCard;
+        JLabel humanPlayCard;
+
+        compPlayCard = new JLabel(guiCard.getIconBack());
+        playedCardLabels[0] = compPlayCard;
+        myCardTable.pnlPlayArea.add(playedCardLabels[0]);
+        //humanCard = new JLabel(guiCard.getIcon(deck.dealCard()));
+        humanPlayCard = new JLabel(guiCard.getIconBack());
+        playedCardLabels[1] = humanPlayCard;
+        myCardTable.pnlPlayArea.add(playedCardLabels[1]);
+
+
+        //JLabel playerCard = new JLabel();
+        //JLabel compCard = new JLabel();
+
+        //playField.add(compCard);
+        //playField.add(playerCard);
+        //playField.add(testLabel1);
+        //playField.add(testLabel2);
+        //playField.add(compFieldLabel);
+        //playField.add(playerFieldLabel);
+
+
+        //myCardTable.pnlPlayArea.add(testLabel1);
+        //myCardTable.pnlPlayArea.add(testLabel2);
+        myCardTable.pnlPlayArea.add(compFieldLabel);
+        myCardTable.pnlPlayArea.add(playerFieldLabel);
+
+        // Display everything to screen
+        myCardTable.pack();
+        myCardTable.setVisible(true);
+        //////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
 
     }
 }
