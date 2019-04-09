@@ -60,17 +60,38 @@ public class Assign5Two {
 
         // CREATE LABELS ----------------------------------------------------
         //code goes here ...
+        JLabel compLabel;
+        JLabel humanLabel;
+        for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
+        {
+            compLabel = new JLabel(GUICard2.getIcon(deck.dealCard()));
+            humanLabel = new JLabel(GUICard2.getIcon(deck.dealCard()));
+            computerLabels[i] = compLabel;
+            humanLabels[i] = humanLabel;
+        }
 
         // ADD LABELS TO PANELS -----------------------------------------
         //code goes here ...
         for (int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
-            myCardTable.add(computerLabels[i], BorderLayout.NORTH);
-            myCardTable.add(humanLabels[i], BorderLayout.SOUTH);
+            myCardTable.pnlComputerHand.add(computerLabels[i], BorderLayout.NORTH);
+            myCardTable.pnlHumanHand.add(humanLabels[i], BorderLayout.SOUTH);
         }
 
         // and two random cards in the play region (simulating a computer/hum ply)
         // code goes here ...
+        for (int i = 0; i < NUM_PLAYERS; i++)
+        {
+            JLabel playArea = new JLabel(GUICard2.getIcon(deck.dealCard()));
+            playedCardLabels[i] = playArea;
+        }
+
+
+        JLabel playAreaText1 = new JLabel("Computer");
+        //playLabelText[3] = playAreaText1;
+        JLabel playAreaText2 = new JLabel("You");
+        //playLabelText[4] = playAreaText2;
+
 
         // show everything to the user
         myCardTable.setVisible(true);
