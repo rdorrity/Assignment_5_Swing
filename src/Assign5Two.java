@@ -44,35 +44,38 @@ public class Assign5Two {
         }
 
         //////////////////////////////////////////////////////////////////////////
-        // Ryan is testing CardTable Class here
-        // establish main frame in which program will run
+        // Cody is testing CardTable Class here
+        // Establish main frame in which program will run
         int k;
         Icon tempIcon;
 
+        // "On create" method
         CardTable myCardTable
                 = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
-        myCardTable.setSize(800, 600);
+        myCardTable.setLayout(new BorderLayout());
+        myCardTable.setSize(1366, 768);
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // show everything to the user
+        // Display everything to screen
         myCardTable.setVisible(true);
 
-        // CREATE LABELS ----------------------------------------------------
-        //code goes here ...
+        // Create JLabels
+        JLabel playerHandLabel = new JLabel("Player");
+        JLabel compHandLabel = new JLabel("Computer");
+        JLabel playFieldLabel = new JLabel("Field");
 
-        // ADD LABELS TO PANELS -----------------------------------------
-        //code goes here ...
+
+        // Add JLabels to JPanels
         for (int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
             myCardTable.add(computerLabels[i], BorderLayout.NORTH);
             myCardTable.add(humanLabels[i], BorderLayout.SOUTH);
         }
 
-        // and two random cards in the play region (simulating a computer/hum ply)
-        // code goes here ...
+        // Add two random cards in the play region (computer/human)
 
-        // show everything to the user
+        // Display everything to screen
         myCardTable.setVisible(true);
         //////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////
