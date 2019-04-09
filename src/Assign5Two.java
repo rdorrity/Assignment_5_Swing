@@ -127,6 +127,7 @@ public class Assign5Two {
         GUICard2 guiCard = new GUICard2();
         guiCard.loadCardIcons();
 
+        deck.shuffle();
         JLabel compCard;
         JLabel humanCard;
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
@@ -526,7 +527,7 @@ class GUICard2 {
     static String intToCardSuit(int suitAsInt) {
         if (suitAsInt < 0 || suitAsInt > 3)
             return "invalid";
-        return Card.Suit.values()[suitAsInt].toString();
+        return Card.Suit.values()[suitAsInt].toString().toUpperCase().substring(0, 1);
     }
 
     private static int valueToInt(Card card) {
