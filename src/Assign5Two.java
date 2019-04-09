@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Assign5Two {
     //////////////////////////////////////////////////////////////////////////
-    // members for Assig5 class. Ryan is testing CardTable class here
+    // members for Assig5 class. Cody is testing CardTable class here
     static int NUM_CARDS_PER_HAND = 7;
     static int  NUM_PLAYERS = 2;
     static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
@@ -21,7 +21,6 @@ public class Assign5Two {
     }
 
     public static void main(String[] args) {
-
 
         Deck deck = new Deck();
         deck.shuffle();
@@ -46,39 +45,100 @@ public class Assign5Two {
         //////////////////////////////////////////////////////////////////////////
         // Cody is testing CardTable Class here
         // Establish main frame in which program will run
-        int k;
-        Icon tempIcon;
 
         // "On create" method
         CardTable myCardTable
                 = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
-        myCardTable.setLayout(new BorderLayout());
         myCardTable.setSize(1366, 768);
+        myCardTable.setLayout(new BoxLayout(myCardTable.getContentPane(), BoxLayout.Y_AXIS));
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Display everything to screen
-        myCardTable.setVisible(true);
+       // Create JPanels, set borders and panel text
+       TitledBorder playerBorder =
+               BorderFactory.createTitledBorder("Player");
+       TitledBorder compBorder =
+               BorderFactory.createTitledBorder("Computer");
+       TitledBorder fieldBorder =
+               BorderFactory.createTitledBorder("Field");
 
-        // Create JLabels
-        JLabel playerHandLabel = new JLabel("Player");
-        JLabel compHandLabel = new JLabel("Computer");
-        JLabel playFieldLabel = new JLabel("Field");
+       // JLabels for field labels
+       JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
+       JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
+
+       // Add test text labels for center playing field, replace with Cards
+       // later
+       JLabel testLabel1 = new JLabel("Card 1", JLabel.CENTER);
+       JLabel testLabel2 = new JLabel("Card 2", JLabel.CENTER);
+
+       JPanel compHand = new JPanel();
+       compHand.setBorder(compBorder);
+
+       JPanel playField = new JPanel();
+       playField.setLayout(new GridLayout(2,2));
+       playField.setBorder(fieldBorder);
+
+       JPanel playHand = new JPanel();
+       playHand.setBorder(playerBorder);
+
+       // Panel for buttons/control/display info (no border)
+       JPanel controlPanel = new JPanel();
+
+       // Add JPanels to main program window, set padding between panels
+       compHand.setPreferredSize(new Dimension(1366,125));
+       myCardTable.add(compHand);
+       myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
+
+       playField.setPreferredSize(new Dimension(1366, 250));
+       myCardTable.add(playField);
+       myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
+
+       playHand.setPreferredSize(new Dimension(1366, 125));
+       myCardTable.add(playHand);
+       myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
+
+       // Add JLabel at bottom for buttons/controls/info
+       controlPanel.setPreferredSize(new Dimension(1366, 150));
+       controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
+       myCardTable.add(controlPanel);
+
+       // Add buttons that do stuff
+       JButton testButton1 = new JButton("Draw Exodia");
+       JButton testButton2 = new JButton("Draw Blue Eyes White Dragon");
+       JButton testButton3 = new JButton("Start Duel");
+       JButton testButton4 = new JButton("Forfeit Duel");
+
+       controlPanel.add(testButton1);
+       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+       controlPanel.add(testButton2);
+       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+       controlPanel.add(testButton3);
+       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+       controlPanel.add(testButton4);
+       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
 
-        // Add JLabels to JPanels
-        for (int i = 0; i < NUM_CARDS_PER_HAND; i++)
-        {
-            myCardTable.add(computerLabels[i], BorderLayout.NORTH);
-            myCardTable.add(humanLabels[i], BorderLayout.SOUTH);
-        }
+       // Create JLabels to hold ImageIcons
+       // Add JLabels to JPanels
 
-        // Add two random cards in the play region (computer/human)
+       // Add two random cards in the play region (computer/human) and text
+       // labels
 
-        // Display everything to screen
-        myCardTable.setVisible(true);
-        //////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
+       JLabel playerCard = new JLabel();
+       JLabel compCard = new JLabel();
+
+       //playField.add(compCard);
+       //playField.add(playerCard);
+       playField.add(testLabel1);
+       playField.add(testLabel2);
+       playField.add(compFieldLabel);
+       playField.add(playerFieldLabel);
+
+       // Display everything to screen
+       myCardTable.pack();
+       myCardTable.setVisible(true);
+       //////////////////////////////////////////////////////////////////////////
+       //////////////////////////////////////////////////////////////////////////
     }
 }
 
