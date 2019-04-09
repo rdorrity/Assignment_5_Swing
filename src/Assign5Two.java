@@ -3,7 +3,7 @@ import javax.swing.border.*;
 import java.util.*;
 import java.awt.*;
 
-public class Assign5Two {
+class Assign5Two {
     //////////////////////////////////////////////////////////////////////////
     // members for Assig5 class. Cody is testing CardTable class here
     static int NUM_CARDS_PER_HAND = 7;
