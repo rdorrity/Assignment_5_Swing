@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.util.*;
 import java.awt.*;
 
@@ -62,6 +63,11 @@ public class Assign5Two {
 
         // ADD LABELS TO PANELS -----------------------------------------
         //code goes here ...
+        for (int i = 0; i < NUM_CARDS_PER_HAND; i++)
+        {
+            myCardTable.add(computerLabels[i], BorderLayout.NORTH);
+            myCardTable.add(humanLabels[i], BorderLayout.SOUTH);
+        }
 
         // and two random cards in the play region (simulating a computer/hum ply)
         // code goes here ...
