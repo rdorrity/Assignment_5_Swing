@@ -42,10 +42,6 @@ public class Assign5Two {
             System.out.println(deck.inspectCard(i));
         }
 
-        //////////////////////////////////////////////////////////////////////////
-        // Cody is testing CardTable Class here
-        // Establish main frame in which program will run
-
         // "On create" method
         CardTable myCardTable
                 = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
@@ -68,16 +64,10 @@ public class Assign5Two {
 
         // Add test text labels for center playing field, replace with Cards
         // later
-        //JLabel testLabel1 = new JLabel("Card 1", JLabel.CENTER);
-        //JLabel testLabel2 = new JLabel("Card 2", JLabel.CENTER);
 
-        //JPanel compHand = new JPanel();
-        //compHand.setBorder(compBorder);
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
         //JPanel playField = new JPanel();
-        //playField.setLayout(new GridLayout(2,2));
-        //playField.setBorder(fieldBorder);
         myCardTable.pnlPlayArea.setBorder(fieldBorder);
 
         //JPanel playHand = new JPanel();
@@ -88,17 +78,12 @@ public class Assign5Two {
 
         // Add JPanels to main program window, set padding between panels
         myCardTable.pnlComputerHand.setPreferredSize(new Dimension(1366,125));
-        //myCardTable.add(compHand);
         myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
-        //playField.setPreferredSize(new Dimension(1366, 250));
         myCardTable.pnlPlayArea.setPreferredSize(new Dimension(1366, 250));
-        //myCardTable.add(playField);
         myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
-        //playHand.setPreferredSize(new Dimension(1366, 125));
         myCardTable.pnlHumanHand.setPreferredSize(new Dimension(1366, 125));
-        //myCardTable.add(playHand);
         myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
         // Add JLabel at bottom for buttons/controls/info
@@ -124,61 +109,41 @@ public class Assign5Two {
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
-        GUICard2 guiCard = new GUICard2();
-        guiCard.loadCardIcons();
-
+        GUICard2.loadCardIcons();
         deck.shuffle();
         JLabel compCard;
         JLabel humanCard;
+
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
-            compCard = new JLabel(guiCard.getIconBack());
+            compCard = new JLabel(GUICard2.getIconBack());
             computerLabels[i] = compCard;
             myCardTable.pnlComputerHand.add(computerLabels[i]);
-            humanCard = new JLabel(guiCard.getIcon(deck.dealCard()));
+            humanCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
             //humanCard = new JLabel(guiCard.getIconBack());
             humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(humanLabels[i]);
         }
-
-
 
         // Add two random cards in the play region (computer/human) and text
         // labels
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
-        compPlayCard = new JLabel(guiCard.getIconBack());
+        compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(playedCardLabels[0]);
-        //humanCard = new JLabel(guiCard.getIcon(deck.dealCard()));
-        humanPlayCard = new JLabel(guiCard.getIconBack());
+        humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         playedCardLabels[1] = humanPlayCard;
         myCardTable.pnlPlayArea.add(playedCardLabels[1]);
 
-
-        //JLabel playerCard = new JLabel();
-        //JLabel compCard = new JLabel();
-
-        //playField.add(compCard);
-        //playField.add(playerCard);
-        //playField.add(testLabel1);
-        //playField.add(testLabel2);
-        //playField.add(compFieldLabel);
-        //playField.add(playerFieldLabel);
-
-
-        //myCardTable.pnlPlayArea.add(testLabel1);
-        //myCardTable.pnlPlayArea.add(testLabel2);
+        // Display label text for computer and player
         myCardTable.pnlPlayArea.add(compFieldLabel);
         myCardTable.pnlPlayArea.add(playerFieldLabel);
 
         // Display everything to screen
         myCardTable.pack();
         myCardTable.setVisible(true);
-        //////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////
-
     }
 }
 
@@ -452,8 +417,7 @@ class Deck {
     }
 
 }
-class CardTable extends JFrame
-{
+class CardTable extends JFrame {
     static int MAX_CARDS_PER_HAND = 56;
     static int MAX_PLAYERS = 2;
 
@@ -462,8 +426,7 @@ class CardTable extends JFrame
 
     public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
 
-    public CardTable(String title, int numCardsPerHand, int numPlayers)
-    {
+    public CardTable(String title, int numCardsPerHand, int numPlayers) {
         super(title);
         setLayout(new BorderLayout());
 
@@ -483,13 +446,11 @@ class CardTable extends JFrame
         this.numPlayers = numPlayers;
     }
 
-    public int getNumCardsPerHand()
-    {
+    public int getNumCardsPerHand() {
         return numCardsPerHand;
     }
 
-    public int getNumPlayers()
-    {
+    public int getNumPlayers() {
         return numPlayers;
     }
 
