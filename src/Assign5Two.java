@@ -8,11 +8,33 @@ public class Assign5Two {
         Random randomGen = new Random();
         return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
     }
+
+    public static void main(String[] args) {
+        Deck deck = new Deck();
+        deck.shuffle();
+
+        for (int i = 0; i < deck.getNumCards(); i++) {
+            System.out.println(deck.inspectCard(i));
+        }
+        Card rando = generateRandomCard();
+        Card twoRando = generateRandomCard();
+        System.out.println("\nRando cards below: ");
+        System.out.println(rando.toString());
+        System.out.println(twoRando.toString());
+        deck.dealCard();
+        deck.dealCard();
+        deck.dealCard();
+        System.out.println("\nCards should be sorted below:");
+        deck.sort();
+        for (int i = 0; i < deck.getNumCards(); i++) {
+            System.out.println(deck.inspectCard(i));
+        }
+    }
 }
 
 class Card {
 
-    public enum Suit {hearts, spades, diamonds, clubs}
+    public enum Suit {spades, hearts, diamonds, clubs}
     public static Map<Character, Integer> valueRanks = new HashMap<>();
     private Suit suit;
     private char value;
@@ -76,57 +98,19 @@ class Card {
         return false;
     }
 
-    // Insertion Sort version
-    static void arraySort(Card[] cards) {
-        for (int i = 1; i < cards.length; i++) {
+    // Insertion Sort
+    static void arraySort(Card[] cards, int high) {
+        for (int i = 1; i < high; i++) {
             Card current = cards[i];
-            int j = i;
-            for (; j >= 0 && valueRanks.get(cards[j].value) > valueRanks.get(current.value); j--) {
+            int j = i - 1;
+            for ( ; j >= 0 && valueRanks.get(cards[j].value) > valueRanks.get(current.value); j--) {
                 cards[j + 1] = cards[j];
             }
             cards[j + 1] = current;
         }
     }
 
-    // Quicksort version
-    /*
-    static void arraySort(Card[] cards) {
-        arrayQuickSort(cards, 0, cards.length - 1);
-    }
-
-    private static void arrayQuickSort(Card[] cards, int low, int high) {
-        if (low < high) {
-            int pivot = arrayPartition(cards, low, high);
-            arrayQuickSort(cards, low, pivot);
-            arrayQuickSort(cards, pivot + 1, high);
-        }
-    }
-
-    private static int arrayPartition(Card[] cards, int low, int high) {
-        Card pivot = cards[(low + high) / 2];
-        int i = low - 1;
-        int j = high + 1;
-        while (true) {
-            i += 1;
-            while (valueRanks.get(cards[i].value) < valueRanks.get(pivot.value)) {
-                j -= 1;
-                while (valueRanks.get(cards[j].value) > valueRanks.get(pivot.value)) {
-                    if (i >= j)
-                        return j;
-                }
-            }
-            arraySwap(cards, i, j);
-        }
-    }
-
-    private static void arraySwap(Card[] cards, int firstCard, int secondCard) {
-        Card holder = cards[firstCard];
-        cards[firstCard] = cards[secondCard];
-        cards[secondCard] = holder;
-    }
-    */
-
-    private static void setValueRanks() {
+    public static void setValueRanks() {
         if (valueRanks.size() > 0)
             return;
         char[] values = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A', 'X'};
@@ -197,7 +181,7 @@ class Hand {
     }
 
     void sort() {
-        Card.arraySort(myCards);
+        Card.arraySort(myCards, numCards);
     }
 
 }
@@ -296,18 +280,18 @@ class Deck {
     }
 
     public void sort() {
-        Card.arraySort(cards);
+        Card.arraySort(cards, getNumCards());
     }
 
     public int getNumCards() {
-        return cards.length;
+        return topCard - 1;
     }
 
     private static void allocateMasterPack() {
-        if (masterPack != null) {
+        if (masterPack != null)
             return;
-        }
-
+        if (Card.valueRanks.size() < 1)
+            Card.setValueRanks();
         masterPack = new Card[56];
         int position = 0;
         for (Card.Suit suit : Card.Suit.values()) {
@@ -364,9 +348,9 @@ class GUICard2 {
     // Don't need a guard block since Suit is an enum
     private static int suitToInt(Card card) {
         Card.Suit cardSuit = card.getSuit();
-        if (cardSuit == Card.Suit.hearts)
+        if (cardSuit == Card.Suit.spades)
             return 0;
-        else if (cardSuit == Card.Suit.spades)
+        else if (cardSuit == Card.Suit.hearts)
             return 1;
         else if (cardSuit == Card.Suit.diamonds)
             return 2;
