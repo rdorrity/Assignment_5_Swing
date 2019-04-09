@@ -477,6 +477,9 @@ class CardTable extends JFrame
         pnlHumanHand = new JPanel();
         pnlHumanHand.setLayout(new GridLayout(1, numCardsPerHand));
         add(pnlHumanHand, BorderLayout.SOUTH);
+
+        this.numCardsPerHand = numCardsPerHand;
+        this.numPlayers = numPlayers;
     }
 
     public int getNumCardsPerHand()
