@@ -16,13 +16,15 @@ public class CardTableTester extends JFrame
     // members for Assig5 class. Testing here
     static int NUM_CARDS_PER_HAND = 7;
     static int  NUM_PLAYERS = 2;
+    static int MAX_WIDTH = 1366;
+    static int MAX_HEIGHT = 768;
     static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
 
 
-    public CardTable(String title, int numCardsPerHand, int numPlayers)
+    public CardTableTester(String title, int numCardsPerHand, int numPlayers)
     {
         super(title);
         setSize(MAX_WIDTH, MAX_HEIGHT);
@@ -58,9 +60,10 @@ public class CardTableTester extends JFrame
         Icon tempIcon;
 
         // establish main frame in which program will run
-        CardTable myCardTable
-                = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
-        myCardTable.setSize(800, 600);
+        CardTableTester myCardTable
+                = new CardTableTester("CardTable", NUM_CARDS_PER_HAND,
+                NUM_PLAYERS);
+        myCardTable.setSize(MAX_WIDTH, MAX_HEIGHT);
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
