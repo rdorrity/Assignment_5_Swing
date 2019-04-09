@@ -22,7 +22,7 @@ public class CardTableTester extends JFrame
     static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
 
 
-    public CardTable(String title, int numCardsPerHand, int numPlayers)
+    public CardTableTester(String title, int numCardsPerHand, int numPlayers)
     {
         super(title);
         setSize(MAX_WIDTH, MAX_HEIGHT);
