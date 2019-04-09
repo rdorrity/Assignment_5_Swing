@@ -8,7 +8,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Module5 {
+public class Assign5One {
 
    // Phase 1
    // Static variables for number of cards and Icon array, which holds the 57
