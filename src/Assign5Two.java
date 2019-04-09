@@ -3,6 +3,16 @@ import java.util.*;
 import java.awt.*;
 
 public class Assign5Two {
+    //////////////////////////////////////////////////////////////////////////
+    // members for Assig5 class. Ryan is testing CardTable class here
+    static int NUM_CARDS_PER_HAND = 7;
+    static int  NUM_PLAYERS = 2;
+    static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
+    static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
+    static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
+    static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
+    //////////////////////////////////////////////////////////////////////////
+
     static Card generateRandomCard() {
         Deck deck = new Deck();
         Random randomGen = new Random();
@@ -10,6 +20,8 @@ public class Assign5Two {
     }
 
     public static void main(String[] args) {
+
+
         Deck deck = new Deck();
         deck.shuffle();
 
@@ -29,6 +41,35 @@ public class Assign5Two {
         for (int i = 0; i < deck.getNumCards(); i++) {
             System.out.println(deck.inspectCard(i));
         }
+
+        //////////////////////////////////////////////////////////////////////////
+        // Ryan is testing CardTable Class here
+        // establish main frame in which program will run
+        int k;
+        Icon tempIcon;
+
+        CardTable myCardTable
+                = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
+        myCardTable.setSize(800, 600);
+        myCardTable.setLocationRelativeTo(null);
+        myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // show everything to the user
+        myCardTable.setVisible(true);
+
+        // CREATE LABELS ----------------------------------------------------
+        //code goes here ...
+
+        // ADD LABELS TO PANELS -----------------------------------------
+        //code goes here ...
+
+        // and two random cards in the play region (simulating a computer/hum ply)
+        // code goes here ...
+
+        // show everything to the user
+        myCardTable.setVisible(true);
+        //////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
     }
 }
 
@@ -299,6 +340,45 @@ class Deck {
                 masterPack[position++] = new Card(value, suit);
             }
         }
+    }
+
+}
+class CardTable extends JFrame
+{
+    static int MAX_CARDS_PER_HAND = 56;
+    static int MAX_PLAYERS = 2;
+
+    private int numCardsPerHand;
+    private int numPlayers;
+
+    public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
+
+    public CardTable(String title, int numCardsPerHand, int numPlayers)
+    {
+        super(title);
+        setLayout(new BorderLayout());
+
+        pnlComputerHand = new JPanel();
+        pnlComputerHand.setLayout(new GridLayout(1, numCardsPerHand));
+        add(pnlComputerHand, BorderLayout.NORTH);
+
+        pnlPlayArea = new JPanel();
+        pnlPlayArea.setLayout(new GridLayout(numPlayers,numPlayers));
+        add(pnlPlayArea, BorderLayout.CENTER);
+
+        pnlHumanHand = new JPanel();
+        pnlHumanHand.setLayout(new GridLayout(1, numCardsPerHand));
+        add(pnlHumanHand, BorderLayout.SOUTH);
+    }
+
+    public int getNumCardsPerHand()
+    {
+        return numCardsPerHand;
+    }
+
+    public int getNumPlayers()
+    {
+        return numPlayers;
     }
 
 }
