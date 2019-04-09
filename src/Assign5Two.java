@@ -58,6 +58,7 @@ public class Assign5Two {
         // show everything to the user
         myCardTable.setVisible(true);
 
+        GUICard2.loadCardIcons();
         // CREATE LABELS ----------------------------------------------------
         //code goes here ...
         JLabel compLabel;
