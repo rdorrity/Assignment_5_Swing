@@ -4,15 +4,14 @@ import java.util.*;
 import java.awt.*;
 
 class Assign5Two {
-    //////////////////////////////////////////////////////////////////////////
-    // members for Assig5 class. Cody is testing CardTable class here
+
+    // Instance variables
     static int NUM_CARDS_PER_HAND = 7;
     static int  NUM_PLAYERS = 2;
     static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
-    //////////////////////////////////////////////////////////////////////////
 
     static Card generateRandomCard() {
         Deck deck = new Deck();

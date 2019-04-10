@@ -39,25 +39,6 @@ class CardGameFramework
 
         highCardGame.deal();
 
-        /*
-        for (int i = 0; i < deck.getNumCards(); i++) {
-            System.out.println(deck.inspectCard(i));
-        }
-        Card rando = highCardGame.getCardFromDeck();
-        Card twoRando = highCardGame.getCardFromDeck();
-        System.out.println("\nRando cards below: ");
-        System.out.println(rando.toString());
-        System.out.println(twoRando.toString());
-        deck.dealCard();
-        deck.dealCard();
-        deck.dealCard();
-        System.out.println("\nCards should be sorted below:");
-        deck.sort();
-        for (int i = 0; i < deck.getNumCards(); i++) {
-            System.out.println(deck.inspectCard(i));
-        }
-        */
-
         // "On create" method
         CardTable myCardTable
                 = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
@@ -108,18 +89,15 @@ class CardGameFramework
         myCardTable.add(controlPanel);
 
         // Add buttons that do stuff
-        JButton testButton1 = new JButton("Draw Exodia");
-        JButton testButton2 = new JButton("Draw Blue Eyes White Dragon");
-        JButton testButton3 = new JButton("Start Duel");
-        JButton testButton4 = new JButton("Forfeit Duel");
+        JButton testButton1 = new JButton("Draw Card");
+        JButton testButton2 = new JButton("Start Round");
+        JButton testButton3 = new JButton("End Round");
 
         controlPanel.add(testButton1);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton2);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton3);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-        controlPanel.add(testButton4);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
 
@@ -146,11 +124,9 @@ class CardGameFramework
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
-        //compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         compPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
-        //humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         humanPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[1] = humanPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[1]);
