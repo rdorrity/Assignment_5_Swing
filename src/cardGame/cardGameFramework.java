@@ -120,6 +120,7 @@ class CardGameFramework
 
             myCardTable.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(myCardTable.humanLabels[i]);
+
         }
 
         // Add two random cards in the play region (computer/human) and text
