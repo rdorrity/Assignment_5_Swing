@@ -108,10 +108,9 @@ class CardGameFramework
         myCardTable.add(controlPanel);
 
         // Add buttons that do stuff
-        JButton testButton1 = new JButton("Draw Exodia");
-        JButton testButton2 = new JButton("Draw Blue Eyes White Dragon");
-        JButton testButton3 = new JButton("Start Duel");
-        JButton testButton4 = new JButton("Forfeit Duel");
+        JButton testButton1 = new JButton("Draw Card");
+        JButton testButton2 = new JButton("Start Game");
+        JButton testButton3 = new JButton("End Game");
 
         controlPanel.add(testButton1);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
@@ -119,9 +118,6 @@ class CardGameFramework
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton3);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-        controlPanel.add(testButton4);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
