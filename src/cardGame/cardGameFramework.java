@@ -79,7 +79,7 @@ class CardGameFramework
 
         // Panel for buttons/control/display info (no border)
         JPanel controlPanel = new JPanel();
-      
+
         // Add JLabel at bottom for buttons/controls/info
         controlPanel.setPreferredSize(new Dimension(1366, 150));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
@@ -87,7 +87,8 @@ class CardGameFramework
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
-        testButton2.addActionListener(new playButtonListener());
+        PlayButtonListener playButton = new PlayButtonListener();
+        testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
         JButton testButton4 = new JButton("End Game");
@@ -142,18 +143,18 @@ class CardGameFramework
     }
 
     // Plays card when "Play Card" button is pressed
-    private class playButtonListener implements ActionListener
-   {
+    public static class PlayButtonListener implements ActionListener
+    {
       @Override
       public void actionPerformed(ActionEvent e) {
          // Play card from player hand
 
       }
-   }
+    }
 
    // Resets round when pressed, clears field and deals cards to player and
    // computer
-   private class resetButtonListener implements ActionListener
+   public static class ResetButtonListener implements ActionListener
    {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -163,7 +164,7 @@ class CardGameFramework
 
    // Exits program when pressed, ideally with another pop up confirmation
    // window
-   private class exitButtonListener implements ActionListener
+   public static class ExitButtonListener implements ActionListener
    {
       @Override
       public void actionPerformed(ActionEvent e) {
