@@ -28,15 +28,12 @@ public class Assign5One {
    private static void loadCardIcons()
    {
       int fileIndex = 0;
-      // NOTE: This variable for debugging only
-      int numCards = 0;
 
       while (fileIndex < NUM_CARD_IMAGES) {
 
          if (fileIndex == 56)    // At last index, insert card back file name
          {
             filenames[56] = "BK" + ".gif";
-            numCards++;
             break;
          }
 
@@ -44,25 +41,8 @@ public class Assign5One {
             for (int j = 0; j < cardValues.length; j++)
             {
                filenames[fileIndex++] = cardValues[j] + cardSuits[i] + ".gif";
-               numCards++;
             }
       }
-
-      // DEBUG ONLY
-      for (String filename: filenames)
-      {
-         System.out.println(filename);
-      }
-      System.out.println("Number of cards: " + numCards);
-
-      if (numCards != 57)
-      {
-         System.out.println("ERROR: Incorrect number of cards.");
-      }
-      // END DEBUG
-
-      // Use filenames to create Icons and insert into Icon array
-      // NOTE: Make sure images folder is in correct working directory.
 
       for (int fnIndex = 0; fnIndex < filenames.length; fnIndex++)
       {
