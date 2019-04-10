@@ -6,33 +6,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-//class cardGame.CardGameFramework  ----------------------------------------------------
-class CardGameFramework
+public class Assig5Three
 {
-    static int MAX_PLAYERS = 2;
 
 
-    private int numPlayers;
-    private int numPacks;            // # standard 52-card packs per deck
-    // ignoring jokers or unused cards
-    private int numJokersPerPack;    // if 2 per pack & 3 packs per deck, get 6
-    private int numUnusedCardsPerPack;  // # cards removed from each pack
-    private int numCardsPerHand;        // # cards to deal each player
-    private Deck deck;               // holds the initial full deck and gets
-    // smaller (usually) during play
-    private Hand[] hand;             // one Hand for each player
-    private Card[] unusedCardsPerPack;   // an array holding the cards not used
-    // in the game.  e.g. pinochle does not
-    // use cards 2-8 of any suit
+    static int NUM_PLAYERS = 2;
+    static int NUM_CARDS_PER_HAND = 7;
+    static int numPacksPerDeck = 1;
+    static int numJokersPerPack = 2;
+    static int numUnusedCardsPerPack = 0;
+    static Card[] unusedCardsPerPack = null;
+    static CardGameFramework highCardGame;
+    static PlayButtonListener playButton;
+    static ExitButtonListener exitButton;
 
     public static void main(String[] args)
     {
-        int NUM_PLAYERS = 2;
-        int NUM_CARDS_PER_HAND = 7;
-        int numPacksPerDeck = 1;
-        int numJokersPerPack = 2;
-        int numUnusedCardsPerPack = 0;
-        Card[] unusedCardsPerPack = null;
+
 
         CardGameFramework highCardGame = new CardGameFramework(
                 numPacksPerDeck, numJokersPerPack,
@@ -55,13 +45,13 @@ class CardGameFramework
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
-        PlayButtonListener playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
+        playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
         testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
 
         JButton testButton4 = new JButton("End Game");
-        ExitButtonListener exitButton = new ExitButtonListener();
+        exitButton = new ExitButtonListener();
         testButton4.addActionListener(exitButton);
 
         myCardTable.addControlButtons(testButton2);
@@ -78,8 +68,8 @@ class CardGameFramework
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
-            compCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(i)));
-            humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
+            compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
+            humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
             myCardTable.dealTable(compCard, humanCard);
         }
 
@@ -89,97 +79,120 @@ class CardGameFramework
 
     }
 
-    // Plays card when "Play Card" button is pressed
-    private static class PlayButtonListener implements ActionListener
+}
+
+// Plays card when "Play Card" button is pressed
+class PlayButtonListener implements ActionListener
+{
+    JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
+    JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
+    CardGameFramework highCardGame;
+    CardTable myCardTable;
+    int numCardsPerHand;
+    int currentNumCards;
+    JLabel compPlayCard;
+    JLabel humanPlayCard;
+    Card comp;
+    Card human;
+    Card[] compWinning = new Card[52];
+    Card[] humanWinning = new Card[52];
+    int i = 0, k = 0;
+
+    public PlayButtonListener(CardGameFramework highCardGame, CardTable myCardTable, int numCardsPerHand)
     {
-        JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
-        JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
-        CardGameFramework highCardGame;
-        CardTable myCardTable;
-        int numCardsPerHand;
-        int currentNumCards;
-        JLabel compPlayCard;
-        JLabel humanPlayCard;
-        Card comp;
-        Card human;
-        Card[] compWinning = new Card[52];
-        Card[] humanWinning = new Card[52];
-        int i = 0, k = 0;
+        this.highCardGame = highCardGame;
+        this.myCardTable = myCardTable;
+        this.numCardsPerHand = numCardsPerHand;
+        currentNumCards = numCardsPerHand;
 
-        public PlayButtonListener(CardGameFramework highCardGame, CardTable myCardTable, int numCardsPerHand)
-        {
-            this.highCardGame = highCardGame;
-            this.myCardTable = myCardTable;
-            this.numCardsPerHand = numCardsPerHand;
-            currentNumCards = numCardsPerHand;
-
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Play card from player hand
+        if(myCardTable.playedCardLabels[0] != null){
+            myCardTable.pnlPlayArea.remove(compPlayCard);
+            myCardTable.pnlPlayArea.remove(humanPlayCard);
         }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Play card from player hand
-            if(myCardTable.playedCardLabels[0] != null){
-                myCardTable.pnlPlayArea.remove(compPlayCard);
-                myCardTable.pnlPlayArea.remove(humanPlayCard);
-            }
-            if (currentNumCards > 0)
-            {
-                comp = highCardGame.hand[0].playCard(currentNumCards - 1);
-                compPlayCard = new JLabel(GUICard2.getIcon(comp));
+        if (currentNumCards > 0)
+        {
+            comp = highCardGame.getHand(0).playCard(currentNumCards - 1);
+            compPlayCard = new JLabel(GUICard2.getIcon(comp));
 
-                myCardTable.playedCardLabels[0] = compPlayCard;
-                myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
-                myCardTable.pnlComputerHand.remove(currentNumCards-1);
+            myCardTable.playedCardLabels[0] = compPlayCard;
+            myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
+            myCardTable.pnlComputerHand.remove(currentNumCards-1);
 
-                human = highCardGame.hand[1].playCard(currentNumCards - 1);
-                humanPlayCard = new JLabel(GUICard2.getIcon(human));
+            human = highCardGame.getHand(1).playCard(currentNumCards - 1);
+            humanPlayCard = new JLabel(GUICard2.getIcon(human));
 
-                myCardTable.playedCardLabels[1] = humanPlayCard;
-                myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
-                myCardTable.pnlHumanHand.remove(currentNumCards-1);
+            myCardTable.playedCardLabels[1] = humanPlayCard;
+            myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
+            myCardTable.pnlHumanHand.remove(currentNumCards-1);
 
-                // Display label text for computer and player
-                myCardTable.pnlPlayArea.add(compFieldLabel);
-                myCardTable.pnlPlayArea.add(playerFieldLabel);
-                currentNumCards--;
+            // Display label text for computer and player
+            myCardTable.pnlPlayArea.add(compFieldLabel);
+            myCardTable.pnlPlayArea.add(playerFieldLabel);
+            currentNumCards--;
 
-                // Refreshes window and redraws displayed cards
-                myCardTable.revalidate();
-                myCardTable.repaint();
-                if (Card.firstCardGreater(comp, human)){
-                    compWinning[i++] = comp;
-                    compWinning[i++] = human;
-                    compWins();
-                }
-                else
-                {
-                    humanWinning[k++] = comp;
-                    humanWinning[k++] = human;
-                    playerWins();
-                }
+            // Refreshes window and redraws displayed cards
+            myCardTable.revalidate();
+            myCardTable.repaint();
+            if (Card.firstCardGreater(comp, human)){
+                compWinning[i++] = comp;
+                compWinning[i++] = human;
+               compWins();
             }
             else
-                handEmpty();
+            {
+                humanWinning[k++] = comp;
+                humanWinning[k++] = human;
+                playerWins();
+            }
         }
+        else
+            handEmpty();
     }
 
-    // Resets round when pressed, clears field and deals cards to player and
-    // computer
-    private static class ResetButtonListener implements ActionListener
+    private static void playerWins()
     {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
+        JOptionPane.showMessageDialog(null, "Player wins!");
     }
 
-    // Exits program when pressed, ideally with another pop up confirmation
-    // window
-    private static class ExitButtonListener implements ActionListener
+    private static void compWins()
     {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            windowClose();
+        JOptionPane.showMessageDialog(null, "You lose!");
+    }
+
+
+
+    private static void handEmpty()
+    {
+        int exit = JOptionPane.showConfirmDialog(null, "No more cards left " +
+                "to play. Play again?","Game Over", JOptionPane.YES_NO_OPTION);
+        if (exit == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
         }
+    }
+}
+
+// Resets round when pressed, clears field and deals cards to player and
+// computer
+class ResetButtonListener implements ActionListener
+{
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+}
+
+// Exits program when pressed, ideally with another pop up confirmation
+// window
+class ExitButtonListener implements ActionListener
+{
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        windowClose();
     }
 
     // Prompts exit confirmation box when end game button is pressed
@@ -192,26 +205,25 @@ class CardGameFramework
             System.exit(0);
         }
     }
+}
+//class cardGame.CardGameFramework  ----------------------------------------------------
+class CardGameFramework
+{
+    static int MAX_PLAYERS = 2;
 
-    private static void handEmpty()
-    {
-        int exit = JOptionPane.showConfirmDialog(null, "No more cards left " +
-                "to play. Exit?","Exit", JOptionPane.YES_NO_OPTION);
-        if (exit == JOptionPane.YES_OPTION)
-        {
-            System.exit(0);
-        }
-    }
 
-    private static void playerWins()
-    {
-        JOptionPane.showMessageDialog(null, "Player wins!");
-    }
-
-    private static void compWins()
-    {
-        JOptionPane.showMessageDialog(null, "You lose!");
-    }
+    private int numPlayers;
+    private int numPacks;            // # standard 52-card packs per deck
+    // ignoring jokers or unused cards
+    private int numJokersPerPack;    // if 2 per pack & 3 packs per deck, get 6
+    private int numUnusedCardsPerPack;  // # cards removed from each pack
+    private int numCardsPerHand;        // # cards to deal each player
+    private Deck deck;               // holds the initial full deck and gets
+    // smaller (usually) during play
+    private Hand[] hand;             // one Hand for each player
+    private Card[] unusedCardsPerPack;   // an array holding the cards not used
+    // in the game.  e.g. pinochle does not
+    // use cards 2-8 of any suit
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
                               int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
