@@ -34,6 +34,7 @@ class CardGameFramework
         int numUnusedCardsPerPack = 0;
         Card[] unusedCardsPerPack = null;
 
+
         CardGameFramework highCardGame = new CardGameFramework(
                 numPacksPerDeck, numJokersPerPack,
                 numUnusedCardsPerPack, unusedCardsPerPack,
@@ -112,33 +113,17 @@ class CardGameFramework
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
-            compCard = new JLabel(GUICard2.getIconBack());
+            // used to check computers hand. CARDS FACE UP //////////////////////////////
+            compCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(i)));
+
+            //compCard = new JLabel(GUICard2.getIconBack());
             myCardTable.computerLabels[i] = compCard;
             myCardTable.pnlComputerHand.add(myCardTable.computerLabels[i]);
-
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
-
             myCardTable.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(myCardTable.humanLabels[i]);
 
         }
-
-        // Add two random cards in the play region (computer/human) and text
-        // labels
-        //JLabel compPlayCard;
-        //JLabel humanPlayCard;
-
-        //compPlayCard = new JLabel(GUICard2.getIconBack());
-        //myCardTable.playedCardLabels[0] = compPlayCard;
-        //myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
-
-        //humanPlayCard = new JLabel(GUICard2.getIconBack());
-        //myCardTable.playedCardLabels[1] = humanPlayCard;
-        //myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
-
-        // Display label text for computer and player
-        //myCardTable.pnlPlayArea.add(compFieldLabel);
-        //myCardTable.pnlPlayArea.add(playerFieldLabel);
 
         // Display everything to screen
         myCardTable.pack();
@@ -158,6 +143,11 @@ class CardGameFramework
         int currentNumCards;
         JLabel compPlayCard;
         JLabel humanPlayCard;
+        Card comp;
+        Card human;
+        Card[] compWinning = new Card[52];
+        Card[] humanWinning = new Card[52];
+        int i = 0, k = 0;
 
         public PlayButtonListener(CardGameFramework highCardGame, CardTable myCardTable, int numCardsPerHand)
         {
@@ -175,19 +165,32 @@ class CardGameFramework
           }
           if (currentNumCards > 0)
           {
-              compPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(currentNumCards - 1)));
+              comp = highCardGame.hand[0].playCard(currentNumCards - 1);
+              compPlayCard = new JLabel(GUICard2.getIcon(comp));
+
               myCardTable.playedCardLabels[0] = compPlayCard;
               myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
-              humanPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(currentNumCards - 1)));
+
+              human = highCardGame.hand[1].playCard(currentNumCards - 1);
+              humanPlayCard = new JLabel(GUICard2.getIcon(human));
+
               myCardTable.playedCardLabels[1] = humanPlayCard;
               myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
               // Display label text for computer and player
               myCardTable.pnlPlayArea.add(compFieldLabel);
               myCardTable.pnlPlayArea.add(playerFieldLabel);
               currentNumCards--;
+
               // Refreshes window and redraws displayed cards
               myCardTable.revalidate();
               myCardTable.repaint();
+              if (Card.firstCardGreater(comp, human)){
+                  compWinning[i++] = comp;
+                  compWinning[i++] = human;
+            }
+              else
+                  humanWinning[k++] = comp;
+                    humanWinning[k++] = human;
           }
           else
               handEmpty();
@@ -384,7 +387,7 @@ class CardGameFramework
     }
 
 }
-
+/*
 class Assign5Two {
 
     //////////////////////////////////////////////////////////////////////////
@@ -405,7 +408,7 @@ class Assign5Two {
 
 
 }
-
+*/
 class Card {
 
     public enum Suit {spades, hearts, diamonds, clubs}
@@ -484,7 +487,7 @@ class Card {
         }
     }
 
-    private static boolean firstCardGreater(Card first, Card second) {
+    public static boolean firstCardGreater(Card first, Card second) {
         return cardTotalValue(first) > cardTotalValue(second);
     }
 
