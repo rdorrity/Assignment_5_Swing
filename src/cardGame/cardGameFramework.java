@@ -146,7 +146,6 @@ class CardGameFramework
 
     }
 
-
     // Plays card when "Play Card" button is pressed
     private static class PlayButtonListener implements ActionListener
     {
@@ -165,6 +164,7 @@ class CardGameFramework
             this.myCardTable = myCardTable;
             this.numCardsPerHand = numCardsPerHand;
             currentNumCards = numCardsPerHand;
+
         }
       @Override
       public void actionPerformed(ActionEvent e) {
