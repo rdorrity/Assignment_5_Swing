@@ -218,11 +218,21 @@ class Card {
         for (int i = 1; i < high; i++) {
             Card current = cards[i];
             int j = i - 1;
-            for ( ; j >= 0 && valueRanks.get(cards[j].value) > valueRanks.get(current.value); j--) {
+            for ( ; j >= 0 && firstCardGreater(cards[j], current); j--) {
                 cards[j + 1] = cards[j];
             }
             cards[j + 1] = current;
         }
+    }
+
+    private static boolean firstCardGreater(Card first, Card second) {
+        return cardTotalValue(first) > cardTotalValue(second);
+    }
+
+    private static int cardTotalValue(Card card) {
+        int totalValue = valueRanks.get(card.value) * 10;
+        totalValue += Suit.valueOf(card.getSuit().toString()).ordinal();
+        return totalValue;
     }
 
     public static void setValueRanks() {
