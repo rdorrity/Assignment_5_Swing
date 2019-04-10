@@ -2,6 +2,8 @@ package cardGame;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 
@@ -61,10 +63,8 @@ class CardGameFramework
 
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
-        //JPanel playField = new JPanel();
         myCardTable.pnlPlayArea.setBorder(fieldBorder);
 
-        //JPanel playHand = new JPanel();
         myCardTable.pnlHumanHand.setBorder(playerBorder);
 
         // Add JPanels to main program window, set padding between panels
@@ -87,6 +87,8 @@ class CardGameFramework
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
+        testButton2.addActionListener(new playButtonListener());
+
         JButton testButton3 = new JButton("Reset Round");
         JButton testButton4 = new JButton("End Game");
 
@@ -121,7 +123,6 @@ class CardGameFramework
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
-
         compPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
@@ -140,7 +141,36 @@ class CardGameFramework
 
     }
 
+    // Plays card when "Play Card" button is pressed
+    private class playButtonListener implements ActionListener
+   {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // Play card from player hand
 
+      }
+   }
+
+   // Resets round when pressed, clears field and deals cards to player and
+   // computer
+   private class resetButtonListener implements ActionListener
+   {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // Reset round
+      }
+   }
+
+   // Exits program when pressed, ideally with another pop up confirmation
+   // window
+   private class exitButtonListener implements ActionListener
+   {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // Exit program
+      }
+
+   }
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
                               int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
@@ -703,3 +733,4 @@ class GUICard2 {
         return iconBack;
     }
 }
+
