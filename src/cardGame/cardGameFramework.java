@@ -117,7 +117,6 @@ class CardGameFramework
             myCardTable.pnlComputerHand.add(Assign5Two.computerLabels[i]);
 
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
-
             Assign5Two.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(Assign5Two.humanLabels[i]);
         }
@@ -161,7 +160,7 @@ class CardGameFramework
    {
       @Override
       public void actionPerformed(ActionEvent e) {
-         // Reset round
+
       }
    }
 
@@ -178,8 +177,7 @@ class CardGameFramework
    // Prompts exit confirmation box when end game button is pressed
    private static void windowClose()
    {
-      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want" +
-              " " +
+      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
               "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
       if (exit == JOptionPane.YES_OPTION)
       {
