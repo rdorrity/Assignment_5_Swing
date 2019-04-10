@@ -87,6 +87,8 @@ class CardGameFramework
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
+        testButton2.addActionListener(new playButtonListener());
+
         JButton testButton3 = new JButton("Reset Round");
         JButton testButton4 = new JButton("End Game");
 
@@ -144,10 +146,31 @@ class CardGameFramework
    {
       @Override
       public void actionPerformed(ActionEvent e) {
+         // Play card from player hand
 
       }
    }
 
+   // Resets round when pressed, clears field and deals cards to player and
+   // computer
+   private class resetButtonListener implements ActionListener
+   {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // Reset round
+      }
+   }
+
+   // Exits program when pressed, ideally with another pop up confirmation
+   // window
+   private class exitButtonListener implements ActionListener
+   {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+         // Exit program
+      }
+
+   }
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
                               int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
