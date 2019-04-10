@@ -186,7 +186,6 @@ class CardGameFramework
           myCardTable.pnlPlayArea.add(playerFieldLabel);
 
           currentNumCards--;
-
       }
     }
 
