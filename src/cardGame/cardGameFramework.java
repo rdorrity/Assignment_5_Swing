@@ -78,9 +78,6 @@ class CardGameFramework
         JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
         JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
 
-        // Add test text labels for center playing field, replace with Cards
-        // later
-
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
         //JPanel playField = new JPanel();
