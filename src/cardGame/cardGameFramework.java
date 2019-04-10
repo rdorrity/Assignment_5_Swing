@@ -78,9 +78,6 @@ class CardGameFramework
         JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
         JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
 
-        // Add test text labels for center playing field, replace with Cards
-        // later
-
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
         //JPanel playField = new JPanel();
@@ -131,8 +128,8 @@ class CardGameFramework
             compCard = new JLabel(GUICard2.getIconBack());
             Assign5Two.computerLabels[i] = compCard;
             myCardTable.pnlComputerHand.add(Assign5Two.computerLabels[i]);
+
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
-            //humanCard = new JLabel(guiCard.getIconBack());
             Assign5Two.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(Assign5Two.humanLabels[i]);
         }
@@ -142,11 +139,11 @@ class CardGameFramework
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
-        //compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
+
         compPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
-        //humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
+
         humanPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[1] = humanPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[1]);
