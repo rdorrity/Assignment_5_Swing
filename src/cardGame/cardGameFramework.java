@@ -1,5 +1,5 @@
 package cardGame;
-
+import jdk.nashorn.internal.scripts.JO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -87,7 +87,7 @@ class CardGameFramework
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
-        PlayButtonListener playButton = new PlayButtonListener();
+        PlayButtonListener playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
         testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
@@ -113,12 +113,13 @@ class CardGameFramework
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
             compCard = new JLabel(GUICard2.getIconBack());
-            Assign5Two.computerLabels[i] = compCard;
-            myCardTable.pnlComputerHand.add(Assign5Two.computerLabels[i]);
+            myCardTable.computerLabels[i] = compCard;
+            myCardTable.pnlComputerHand.add(myCardTable.computerLabels[i]);
 
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
-            Assign5Two.humanLabels[i] = humanCard;
-            myCardTable.pnlHumanHand.add(Assign5Two.humanLabels[i]);
+
+            myCardTable.humanLabels[i] = humanCard;
+            myCardTable.pnlHumanHand.add(myCardTable.humanLabels[i]);
         }
 
         // Add two random cards in the play region (computer/human) and text
@@ -127,12 +128,12 @@ class CardGameFramework
         JLabel humanPlayCard;
 
         compPlayCard = new JLabel(GUICard2.getIconBack());
-        Assign5Two.playedCardLabels[0] = compPlayCard;
-        myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
+        myCardTable.playedCardLabels[0] = compPlayCard;
+        myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
 
         humanPlayCard = new JLabel(GUICard2.getIconBack());
-        Assign5Two.playedCardLabels[1] = humanPlayCard;
-        myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[1]);
+        myCardTable.playedCardLabels[1] = humanPlayCard;
+        myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
 
         // Display label text for computer and player
         myCardTable.pnlPlayArea.add(compFieldLabel);
@@ -144,12 +145,42 @@ class CardGameFramework
 
     }
 
+
     // Plays card when "Play Card" button is pressed
     private static class PlayButtonListener implements ActionListener
     {
+        JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
+        JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
+        CardGameFramework highCardGame;
+        CardTable myCardTable;
+        int numCardsPerHand;
+        int currentNumCards;
+        JLabel compPlayCard;
+        JLabel humanPlayCard;
+
+        public PlayButtonListener(CardGameFramework highCardGame, CardTable myCardTable, int numCardsPerHand)
+        {
+            this.highCardGame = highCardGame;
+            this.myCardTable = myCardTable;
+            this.numCardsPerHand = numCardsPerHand;
+            currentNumCards = numCardsPerHand;
+        }
       @Override
       public void actionPerformed(ActionEvent e) {
          // Play card from player hand
+          compPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(currentNumCards-1)));
+          myCardTable.playedCardLabels[0] = compPlayCard;
+          myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
+
+          humanPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(currentNumCards-1)));
+          myCardTable.playedCardLabels[1] = humanPlayCard;
+          myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
+
+          // Display label text for computer and player
+          myCardTable.pnlPlayArea.add(compFieldLabel);
+          myCardTable.pnlPlayArea.add(playerFieldLabel);
+
+          currentNumCards--;
 
       }
     }
@@ -647,11 +678,18 @@ class Deck {
 class CardTable extends JFrame {
     static int MAX_CARDS_PER_HAND = 56;
     static int MAX_PLAYERS = 2;
+    static int NUM_CARDS_PER_HAND = 7;
+    static int  NUM_PLAYERS = 2;
 
     private int numCardsPerHand;
     private int numPlayers;
 
     public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
+
+    static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
+    static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
+    static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
+    static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
 
     public CardTable(String title, int numCardsPerHand, int numPlayers) {
         super(title);
