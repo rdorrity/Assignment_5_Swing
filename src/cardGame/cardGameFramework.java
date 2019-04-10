@@ -120,6 +120,7 @@ class CardGameFramework
 
             myCardTable.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(myCardTable.humanLabels[i]);
+
         }
 
         // Add two random cards in the play region (computer/human) and text
@@ -191,7 +192,7 @@ class CardGameFramework
    {
       @Override
       public void actionPerformed(ActionEvent e) {
-         // Reset round
+
       }
    }
 
@@ -208,8 +209,7 @@ class CardGameFramework
    // Prompts exit confirmation box when end game button is pressed
    private static void windowClose()
    {
-      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want" +
-              " " +
+      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
               "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
       if (exit == JOptionPane.YES_OPTION)
       {
