@@ -4,6 +4,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.*;
 
 
@@ -91,7 +93,10 @@ class CardGameFramework
         testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
+
         JButton testButton4 = new JButton("End Game");
+        ExitButtonListener exitButton = new ExitButtonListener();
+        testButton4.addActionListener(exitButton);
 
         controlPanel.add(testButton2);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
@@ -168,7 +173,7 @@ class CardGameFramework
    {
       @Override
       public void actionPerformed(ActionEvent e) {
-         // Exit program
+         System.exit(0);
       }
 
    }
