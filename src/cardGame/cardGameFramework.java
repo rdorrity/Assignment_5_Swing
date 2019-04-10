@@ -142,13 +142,14 @@ class CardGameFramework
 
     }
 
+
     // Plays card when "Play Card" button is pressed
     public static class PlayButtonListener implements ActionListener
     {
       @Override
       public void actionPerformed(ActionEvent e) {
          // Play card from player hand
-
+          //highCardGame.hand[1].inspectCard(i))
       }
     }
 
