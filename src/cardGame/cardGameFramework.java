@@ -169,24 +169,28 @@ class CardGameFramework
       @Override
       public void actionPerformed(ActionEvent e) {
          // Play card from player hand
-          compPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(currentNumCards-1)));
-          myCardTable.playedCardLabels[0] = compPlayCard;
-          myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
-
-          humanPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(currentNumCards-1)));
-          myCardTable.playedCardLabels[1] = humanPlayCard;
-          myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
-
-          // Display label text for computer and player
-          myCardTable.pnlPlayArea.add(compFieldLabel);
-          myCardTable.pnlPlayArea.add(playerFieldLabel);
-
-          currentNumCards--;
-
-          // Refreshes window and redraws displayed cards
-          myCardTable.revalidate();
-          myCardTable.repaint();
-
+          if(myCardTable.playedCardLabels[0] != null){
+              myCardTable.pnlPlayArea.remove(compPlayCard);
+              myCardTable.pnlPlayArea.remove(humanPlayCard);
+          }
+          if (currentNumCards > 0)
+          {
+              compPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(currentNumCards - 1)));
+              myCardTable.playedCardLabels[0] = compPlayCard;
+              myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
+              humanPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(currentNumCards - 1)));
+              myCardTable.playedCardLabels[1] = humanPlayCard;
+              myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
+              // Display label text for computer and player
+              myCardTable.pnlPlayArea.add(compFieldLabel);
+              myCardTable.pnlPlayArea.add(playerFieldLabel);
+              currentNumCards--;
+              // Refreshes window and redraws displayed cards
+              myCardTable.revalidate();
+              myCardTable.repaint();
+          }
+          else
+              handEmpty();
       }
     }
 
@@ -221,6 +225,15 @@ class CardGameFramework
       }
    }
 
+    private static void handEmpty()
+    {
+        int exit = JOptionPane.showConfirmDialog(null, "No more cards left " +
+                "to play. Exit?","Exit", JOptionPane.YES_NO_OPTION);
+        if (exit == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+    }
     public CardGameFramework( int numPacks, int numJokersPerPack,
                               int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
                               int numPlayers, int numCardsPerHand)
