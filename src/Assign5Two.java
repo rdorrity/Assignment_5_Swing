@@ -3,6 +3,15 @@ import javax.swing.border.*;
 import java.util.*;
 import java.awt.*;
 
+/**
+ * Module 5 Phase 2 - Card Game GUI
+ * Demonstrates a card game GUI application with cards and fields for player,
+ * computer, and playing field.
+ * @author Sara Kazemi, Ryan Dorrity, Nathan Warren-Acord, Cody Young
+ * CST 338
+ * 2019-04-09
+ */
+
 class Assign5Two {
 
     // Instance variables
@@ -12,6 +21,7 @@ class Assign5Two {
     static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
+
 
     static Card generateRandomCard() {
         Deck deck = new Deck();
@@ -61,9 +71,6 @@ class Assign5Two {
         JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
         JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
 
-        // Add test text labels for center playing field, replace with Cards
-        // later
-
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
         //JPanel playField = new JPanel();
@@ -91,10 +98,10 @@ class Assign5Two {
         myCardTable.add(controlPanel);
 
         // Add buttons that do stuff
-        JButton testButton1 = new JButton("Draw Exodia");
-        JButton testButton2 = new JButton("Draw Blue Eyes White Dragon");
-        JButton testButton3 = new JButton("Start Duel");
-        JButton testButton4 = new JButton("Forfeit Duel");
+        JButton testButton1 = new JButton("Draw Card");
+        JButton testButton2 = new JButton("Peek");
+        JButton testButton3 = new JButton("Start Game");
+        JButton testButton4 = new JButton("End Game");
 
         controlPanel.add(testButton1);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
@@ -118,8 +125,8 @@ class Assign5Two {
             compCard = new JLabel(GUICard2.getIconBack());
             computerLabels[i] = compCard;
             myCardTable.pnlComputerHand.add(computerLabels[i]);
+
             humanCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
-            //humanCard = new JLabel(guiCard.getIconBack());
             humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(humanLabels[i]);
         }
@@ -132,6 +139,7 @@ class Assign5Two {
         compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(playedCardLabels[0]);
+
         humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         playedCardLabels[1] = humanPlayCard;
         myCardTable.pnlPlayArea.add(playedCardLabels[1]);
