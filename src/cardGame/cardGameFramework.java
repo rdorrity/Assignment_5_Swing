@@ -1,10 +1,16 @@
 package cardGame;
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.*;
+
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
 
 //class cardGame.CardGameFramework  ----------------------------------------------------
@@ -91,7 +97,10 @@ class CardGameFramework
         testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
+
         JButton testButton4 = new JButton("End Game");
+        ExitButtonListener exitButton = new ExitButtonListener();
+        testButton4.addActionListener(exitButton);
 
         controlPanel.add(testButton2);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
@@ -144,7 +153,7 @@ class CardGameFramework
 
 
     // Plays card when "Play Card" button is pressed
-    public static class PlayButtonListener implements ActionListener
+    private static class PlayButtonListener implements ActionListener
     {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -155,7 +164,7 @@ class CardGameFramework
 
    // Resets round when pressed, clears field and deals cards to player and
    // computer
-   public static class ResetButtonListener implements ActionListener
+   private static class ResetButtonListener implements ActionListener
    {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -165,13 +174,24 @@ class CardGameFramework
 
    // Exits program when pressed, ideally with another pop up confirmation
    // window
-   public static class ExitButtonListener implements ActionListener
+   private static class ExitButtonListener implements ActionListener
    {
       @Override
       public void actionPerformed(ActionEvent e) {
-         // Exit program
+         windowClose();
       }
+   }
 
+   // Prompts exit confirmation box when end game button is pressed
+   private static void windowClose()
+   {
+      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want" +
+              " " +
+              "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
+      if (exit == JOptionPane.YES_OPTION)
+      {
+         System.exit(0);
+      }
    }
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
