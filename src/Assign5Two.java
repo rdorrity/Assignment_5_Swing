@@ -271,6 +271,13 @@ class Hand {
         return toPlay;
     }
 
+    public Card playCard(int index) {
+        Card toPlay = new Card(myCards[index].getValue(), myCards[index].getSuit());
+        myCards[index] = null;
+        numCards--;
+        return toPlay;
+    }
+
     public String toString() {
         StringBuilder fullHand = new StringBuilder();
         fullHand.append("Hand = (");
