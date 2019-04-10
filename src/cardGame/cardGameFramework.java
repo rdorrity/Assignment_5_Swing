@@ -1,5 +1,4 @@
 package cardGame;
-import jdk.nashorn.internal.scripts.JO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -10,7 +9,8 @@ import java.util.*;
 //class cardGame.CardGameFramework  ----------------------------------------------------
 class CardGameFramework
 {
-    private static final int MAX_PLAYERS = 50;
+    static int MAX_PLAYERS = 2;
+
 
     private int numPlayers;
     private int numPacks;            // # standard 52-card packs per deck
@@ -34,7 +34,6 @@ class CardGameFramework
         int numUnusedCardsPerPack = 0;
         Card[] unusedCardsPerPack = null;
 
-
         CardGameFramework highCardGame = new CardGameFramework(
                 numPacksPerDeck, numJokersPerPack,
                 numUnusedCardsPerPack, unusedCardsPerPack,
@@ -44,47 +43,15 @@ class CardGameFramework
 
         // "On create" method
         CardTable myCardTable
-                = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
+                = new CardTable(highCardGame, "CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
         myCardTable.setSize(1366, 768);
         myCardTable.setLayout(new BoxLayout(myCardTable.getContentPane(), BoxLayout.Y_AXIS));
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Create JPanels, set borders and panel text
-        TitledBorder playerBorder =
-                BorderFactory.createTitledBorder("Player");
-        TitledBorder compBorder =
-                BorderFactory.createTitledBorder("Computer");
-        TitledBorder fieldBorder =
-                BorderFactory.createTitledBorder("Field");
-
-        // JLabels for field labels
-        JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
-        JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
-
-        myCardTable.pnlComputerHand.setBorder(compBorder);
-
-        myCardTable.pnlPlayArea.setBorder(fieldBorder);
-
-        myCardTable.pnlHumanHand.setBorder(playerBorder);
-
-        // Add JPanels to main program window, set padding between panels
-        myCardTable.pnlComputerHand.setPreferredSize(new Dimension(1366,125));
-        myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
-
-        myCardTable.pnlPlayArea.setPreferredSize(new Dimension(1366, 250));
-        myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
-
-        myCardTable.pnlHumanHand.setPreferredSize(new Dimension(1366, 125));
-        myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
-
-        // Panel for buttons/control/display info (no border)
-        JPanel controlPanel = new JPanel();
-
-        // Add JLabel at bottom for buttons/controls/info
-        controlPanel.setPreferredSize(new Dimension(1366, 150));
-        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
-        myCardTable.add(controlPanel);
+        myCardTable.setTableBorders();
+        myCardTable.setPanelSizes();
+        myCardTable.setControlPanels();
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
@@ -97,12 +64,9 @@ class CardGameFramework
         ExitButtonListener exitButton = new ExitButtonListener();
         testButton4.addActionListener(exitButton);
 
-        controlPanel.add(testButton2);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-        controlPanel.add(testButton3);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-        controlPanel.add(testButton4);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        myCardTable.addControlButtons(testButton2);
+        myCardTable.addControlButtons(testButton3);
+        myCardTable.addControlButtons(testButton4);
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
@@ -115,14 +79,8 @@ class CardGameFramework
         {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
             compCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(i)));
-
-            //compCard = new JLabel(GUICard2.getIconBack());
-            myCardTable.computerLabels[i] = compCard;
-            myCardTable.pnlComputerHand.add(myCardTable.computerLabels[i]);
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
-            myCardTable.humanLabels[i] = humanCard;
-            myCardTable.pnlHumanHand.add(myCardTable.humanLabels[i]);
-
+            myCardTable.dealTable(compCard, humanCard);
         }
 
         // Display everything to screen
@@ -694,22 +652,23 @@ class Deck {
 
 }
 class CardTable extends JFrame {
-    static int MAX_CARDS_PER_HAND = 56;
-    static int MAX_PLAYERS = 2;
+
     static int NUM_CARDS_PER_HAND = 7;
     static int  NUM_PLAYERS = 2;
-
     private int numCardsPerHand;
     private int numPlayers;
-
-    public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
+    public JLabel compCard;
+    public JLabel humanCard;
+    public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea, controlPanel;
 
     static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
 
-    public CardTable(String title, int numCardsPerHand, int numPlayers) {
+    CardGameFramework gameFramework;
+
+    public CardTable(CardGameFramework gameFramework, String title, int numCardsPerHand, int numPlayers) {
         super(title);
         setLayout(new BorderLayout());
 
@@ -727,6 +686,65 @@ class CardTable extends JFrame {
 
         this.numCardsPerHand = numCardsPerHand;
         this.numPlayers = numPlayers;
+        this.gameFramework = gameFramework;
+    }
+
+    public void setTableBorders()
+    {
+        // Create JPanels, set borders and panel text
+        TitledBorder playerBorder =
+                BorderFactory.createTitledBorder("Player");
+        TitledBorder compBorder =
+                BorderFactory.createTitledBorder("Computer");
+        TitledBorder fieldBorder =
+                BorderFactory.createTitledBorder("Field");
+
+        pnlComputerHand.setBorder(compBorder);
+        pnlPlayArea.setBorder(fieldBorder);
+        pnlHumanHand.setBorder(playerBorder);
+    }
+
+    public void setPanelSizes()
+    {
+        // Add JPanels to main program window, set padding between panels
+        pnlComputerHand.setPreferredSize(new Dimension(1366,125));
+        add(Box.createRigidArea(new Dimension(0,10)));
+
+        pnlPlayArea.setPreferredSize(new Dimension(1366, 250));
+        add(Box.createRigidArea(new Dimension(0,10)));
+
+        pnlHumanHand.setPreferredSize(new Dimension(1366, 125));
+        add(Box.createRigidArea(new Dimension(0,10)));
+    }
+
+    public void setControlPanels()
+    {
+        controlPanel = new JPanel();
+
+        // Add JLabel at bottom for buttons/controls/info
+        controlPanel.setPreferredSize(new Dimension(1366, 150));
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
+        add(controlPanel);
+    }
+
+    public void addControlButtons(JButton testButton)
+    {
+        controlPanel.add(testButton);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+    }
+
+    public void dealTable(JLabel compCard, JLabel humanCard){
+
+        for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
+        {
+            // used to check computers hand. CARDS FACE UP //////////////////////////////
+            //compCard = new JLabel(GUICard2.getIconBack());
+            computerLabels[i] = compCard;
+            pnlComputerHand.add(computerLabels[i]);
+
+            humanLabels[i] = humanCard;
+            pnlHumanHand.add(humanLabels[i]);
+        }
     }
 
     public int getNumCardsPerHand() {
