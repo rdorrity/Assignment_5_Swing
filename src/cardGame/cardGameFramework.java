@@ -319,7 +319,7 @@ class CardGameFramework
 class Assign5Two {
 
     //////////////////////////////////////////////////////////////////////////
-    // members for Assig5 class. Cody is testing CardTable class here
+    // Members for Assign52 class
     static int NUM_CARDS_PER_HAND = 7;
     static int  NUM_PLAYERS = 2;
     static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
