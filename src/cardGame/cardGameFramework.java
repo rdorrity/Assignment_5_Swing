@@ -2,6 +2,8 @@ package cardGame;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 
@@ -61,10 +63,8 @@ class CardGameFramework
 
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
-        //JPanel playField = new JPanel();
         myCardTable.pnlPlayArea.setBorder(fieldBorder);
 
-        //JPanel playHand = new JPanel();
         myCardTable.pnlHumanHand.setBorder(playerBorder);
 
         // Add JPanels to main program window, set padding between panels
@@ -94,6 +94,8 @@ class CardGameFramework
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton3);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(testButton4);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
@@ -119,7 +121,6 @@ class CardGameFramework
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
-
         compPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
@@ -138,6 +139,14 @@ class CardGameFramework
 
     }
 
+    // Plays card when "Play Card" button is pressed
+    private class playButtonListener implements ActionListener
+   {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+      }
+   }
 
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
@@ -701,3 +710,4 @@ class GUICard2 {
         return iconBack;
     }
 }
+
