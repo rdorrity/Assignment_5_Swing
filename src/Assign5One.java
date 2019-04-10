@@ -18,38 +18,22 @@ public class Assign5One {
    private static Icon[] icons = new ImageIcon[NUM_CARD_IMAGES];
 
    // Arrays for resulting filenames, card values and suits
-   private static String[] filenames = new String[NUM_CARD_IMAGES];
-   private static String[] cardValues = {"A", "2", "3", "4", "5", "6", "7",
-        "8", "9", "T", "J", "Q", "K", "X"};    // "X" cards are jokers
-   private static String[] cardSuits = {"H", "S", "D", "C"};
+   private static char[] cardValues = {'A', '2', '3', '4', '5', '6', '7',
+        '8', '9', 'T', 'J', 'Q', 'K', 'X'};    // X cards are jokers
+   private static char[] cardSuits = {'H', 'S', 'D', 'C'};
 
 
    // Builds Card GIF file names
    private static void loadCardIcons()
    {
-      int fileIndex = 0;
-
-      while (fileIndex < NUM_CARD_IMAGES) {
-
-         if (fileIndex == 56)    // At last index, insert card back file name
-         {
-            filenames[56] = "BK" + ".gif";
-            break;
+      int iconIndex = 0;
+      for(char cardSuit : cardSuits) {
+         for (char cardValue : cardValues) {
+            icons[iconIndex++] = new ImageIcon("images/" + cardValue + cardSuit + ".gif");
          }
-
-         for (int i = 0; i < cardSuits.length; i++)
-            for (int j = 0; j < cardValues.length; j++)
-            {
-               filenames[fileIndex++] = cardValues[j] + cardSuits[i] + ".gif";
-            }
       }
-
-      for (int fnIndex = 0; fnIndex < filenames.length; fnIndex++)
-      {
-         ImageIcon cardIcon = new ImageIcon("images/" + filenames[fnIndex]);
-         icons[fnIndex] = cardIcon;
-      }
-
+      icons[iconIndex] = new ImageIcon("images/BK.gif");
+      // load the back of card image
    }
 
    public static void main(String[] args)
@@ -60,7 +44,7 @@ public class Assign5One {
 
       // Create main program window
       JFrame testWindow = new JFrame("Card Display");
-      testWindow.setSize(1366, 768);
+      testWindow.setSize(1150, 650);
       testWindow.setLocationRelativeTo(null);
       testWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
