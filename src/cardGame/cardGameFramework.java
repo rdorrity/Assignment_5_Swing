@@ -79,7 +79,7 @@ class CardGameFramework
 
         // Panel for buttons/control/display info (no border)
         JPanel controlPanel = new JPanel();
-      
+
         // Add JLabel at bottom for buttons/controls/info
         controlPanel.setPreferredSize(new Dimension(1366, 150));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
@@ -95,7 +95,7 @@ class CardGameFramework
         controlPanel.add(testButton3);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton4);
-       controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
