@@ -33,8 +33,10 @@ class CardGameFramework
                 numPacksPerDeck, numJokersPerPack,
                 numUnusedCardsPerPack, unusedCardsPerPack,
                 NUM_PLAYERS, NUM_CARDS_PER_HAND);
-        
 
+        highCardGame.deal();
+
+        /*
         for (int i = 0; i < deck.getNumCards(); i++) {
             System.out.println(deck.inspectCard(i));
         }
@@ -51,6 +53,7 @@ class CardGameFramework
         for (int i = 0; i < deck.getNumCards(); i++) {
             System.out.println(deck.inspectCard(i));
         }
+        */
 
         // "On create" method
         CardTable myCardTable
@@ -120,19 +123,19 @@ class CardGameFramework
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
         GUICard2.loadCardIcons();
-        deck.shuffle();
+        //deck.shuffle();
         JLabel compCard;
         JLabel humanCard;
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
         {
             compCard = new JLabel(GUICard2.getIconBack());
-            computerLabels[i] = compCard;
-            myCardTable.pnlComputerHand.add(computerLabels[i]);
-            humanCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
+            Assign5Two.computerLabels[i] = compCard;
+            myCardTable.pnlComputerHand.add(Assign5Two.computerLabels[i]);
+            humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
             //humanCard = new JLabel(guiCard.getIconBack());
-            humanLabels[i] = humanCard;
-            myCardTable.pnlHumanHand.add(humanLabels[i]);
+            Assign5Two.humanLabels[i] = humanCard;
+            myCardTable.pnlHumanHand.add(Assign5Two.humanLabels[i]);
         }
 
         // Add two random cards in the play region (computer/human) and text
@@ -140,12 +143,14 @@ class CardGameFramework
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
-        compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
-        playedCardLabels[0] = compPlayCard;
-        myCardTable.pnlPlayArea.add(playedCardLabels[0]);
-        humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
-        playedCardLabels[1] = humanPlayCard;
-        myCardTable.pnlPlayArea.add(playedCardLabels[1]);
+        //compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
+        compPlayCard = new JLabel(GUICard2.getIconBack());
+        Assign5Two.playedCardLabels[0] = compPlayCard;
+        myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
+        //humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
+        humanPlayCard = new JLabel(GUICard2.getIconBack());
+        Assign5Two.playedCardLabels[1] = humanPlayCard;
+        myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[1]);
 
         // Display label text for computer and player
         myCardTable.pnlPlayArea.add(compFieldLabel);
