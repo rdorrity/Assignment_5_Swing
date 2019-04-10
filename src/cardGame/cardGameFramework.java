@@ -59,8 +59,6 @@ class CardGameFramework
         JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
         JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
 
-        // Add test text labels for center playing field, replace with Cards
-        // later
 
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
@@ -69,9 +67,6 @@ class CardGameFramework
 
         //JPanel playHand = new JPanel();
         myCardTable.pnlHumanHand.setBorder(playerBorder);
-
-        // Panel for buttons/control/display info (no border)
-        JPanel controlPanel = new JPanel();
 
         // Add JPanels to main program window, set padding between panels
         myCardTable.pnlComputerHand.setPreferredSize(new Dimension(1366,125));
@@ -83,28 +78,30 @@ class CardGameFramework
         myCardTable.pnlHumanHand.setPreferredSize(new Dimension(1366, 125));
         myCardTable.add(Box.createRigidArea(new Dimension(0,10)));
 
+        // Panel for buttons/control/display info (no border)
+        JPanel controlPanel = new JPanel();
         // Add JLabel at bottom for buttons/controls/info
         controlPanel.setPreferredSize(new Dimension(1366, 150));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
         myCardTable.add(controlPanel);
 
-        // Add buttons that do stuff
-        JButton testButton1 = new JButton("Draw Card");
-        JButton testButton2 = new JButton("Start Round");
-        JButton testButton3 = new JButton("End Round");
+        // Add buttons for controlling the game
+        JButton testButton2 = new JButton("Play Card");
+        JButton testButton3 = new JButton("Reset Round");
+        JButton testButton4 = new JButton("End Game");
 
-        controlPanel.add(testButton1);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton2);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton3);
+        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        controlPanel.add(testButton4);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
 
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
         GUICard2.loadCardIcons();
-        //deck.shuffle();
+
         JLabel compCard;
         JLabel humanCard;
 
@@ -113,8 +110,9 @@ class CardGameFramework
             compCard = new JLabel(GUICard2.getIconBack());
             Assign5Two.computerLabels[i] = compCard;
             myCardTable.pnlComputerHand.add(Assign5Two.computerLabels[i]);
+
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(i)));
-            //humanCard = new JLabel(guiCard.getIconBack());
+
             Assign5Two.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(Assign5Two.humanLabels[i]);
         }
@@ -127,6 +125,7 @@ class CardGameFramework
         compPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[0]);
+
         humanPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[1] = humanPlayCard;
         myCardTable.pnlPlayArea.add(Assign5Two.playedCardLabels[1]);
@@ -140,6 +139,8 @@ class CardGameFramework
         myCardTable.setVisible(true);
 
     }
+
+
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
                               int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
