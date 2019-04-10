@@ -143,7 +143,7 @@ class CardGameFramework
     }
 
     // Plays card when "Play Card" button is pressed
-    public static class PlayButtonListener implements ActionListener
+    private static class PlayButtonListener implements ActionListener
     {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -154,7 +154,7 @@ class CardGameFramework
 
    // Resets round when pressed, clears field and deals cards to player and
    // computer
-   public static class ResetButtonListener implements ActionListener
+   private static class ResetButtonListener implements ActionListener
    {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -164,7 +164,7 @@ class CardGameFramework
 
    // Exits program when pressed, ideally with another pop up confirmation
    // window
-   public static class ExitButtonListener implements ActionListener
+   private static class ExitButtonListener implements ActionListener
    {
       @Override
       public void actionPerformed(ActionEvent e) {
