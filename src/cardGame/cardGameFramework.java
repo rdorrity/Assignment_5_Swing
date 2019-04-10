@@ -59,7 +59,6 @@ class CardGameFramework
         JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
         JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
 
-
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
         //JPanel playField = new JPanel();
@@ -80,6 +79,7 @@ class CardGameFramework
 
         // Panel for buttons/control/display info (no border)
         JPanel controlPanel = new JPanel();
+      
         // Add JLabel at bottom for buttons/controls/info
         controlPanel.setPreferredSize(new Dimension(1366, 150));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
@@ -94,9 +94,6 @@ class CardGameFramework
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
         controlPanel.add(testButton3);
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-        controlPanel.add(testButton4);
-        controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
-
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
@@ -121,6 +118,7 @@ class CardGameFramework
         // labels
         JLabel compPlayCard;
         JLabel humanPlayCard;
+
 
         compPlayCard = new JLabel(GUICard2.getIconBack());
         Assign5Two.playedCardLabels[0] = compPlayCard;

@@ -68,8 +68,10 @@ class Assign5Two {
                 BorderFactory.createTitledBorder("Field");
 
         // JLabels for field labels
-        JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
         JLabel compFieldLabel = new JLabel("Computer", JLabel.CENTER);
+        playLabelText[0] = compFieldLabel;
+        JLabel playerFieldLabel = new JLabel("Player", JLabel.CENTER);
+        playLabelText[1] = playerFieldLabel;
 
         myCardTable.pnlComputerHand.setBorder(compBorder);
 
@@ -136,17 +138,19 @@ class Assign5Two {
         JLabel compPlayCard;
         JLabel humanPlayCard;
 
+        // computer card in play
         compPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         playedCardLabels[0] = compPlayCard;
         myCardTable.pnlPlayArea.add(playedCardLabels[0]);
 
+        // human card in play
         humanPlayCard = new JLabel(GUICard2.getIcon(deck.dealCard()));
         playedCardLabels[1] = humanPlayCard;
         myCardTable.pnlPlayArea.add(playedCardLabels[1]);
 
         // Display label text for computer and player
-        myCardTable.pnlPlayArea.add(compFieldLabel);
-        myCardTable.pnlPlayArea.add(playerFieldLabel);
+        myCardTable.pnlPlayArea.add(playLabelText[0]);
+        myCardTable.pnlPlayArea.add(playLabelText[1]);
 
         // Display everything to screen
         myCardTable.pack();
