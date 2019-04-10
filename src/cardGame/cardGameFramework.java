@@ -125,20 +125,20 @@ class CardGameFramework
 
         // Add two random cards in the play region (computer/human) and text
         // labels
-        JLabel compPlayCard;
-        JLabel humanPlayCard;
+        //JLabel compPlayCard;
+        //JLabel humanPlayCard;
 
-        compPlayCard = new JLabel(GUICard2.getIconBack());
-        myCardTable.playedCardLabels[0] = compPlayCard;
-        myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
+        //compPlayCard = new JLabel(GUICard2.getIconBack());
+        //myCardTable.playedCardLabels[0] = compPlayCard;
+        //myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
 
-        humanPlayCard = new JLabel(GUICard2.getIconBack());
-        myCardTable.playedCardLabels[1] = humanPlayCard;
-        myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
+        //humanPlayCard = new JLabel(GUICard2.getIconBack());
+        //myCardTable.playedCardLabels[1] = humanPlayCard;
+        //myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
 
         // Display label text for computer and player
-        myCardTable.pnlPlayArea.add(compFieldLabel);
-        myCardTable.pnlPlayArea.add(playerFieldLabel);
+        //myCardTable.pnlPlayArea.add(compFieldLabel);
+        //myCardTable.pnlPlayArea.add(playerFieldLabel);
 
         // Display everything to screen
         myCardTable.pack();
@@ -182,6 +182,10 @@ class CardGameFramework
           myCardTable.pnlPlayArea.add(playerFieldLabel);
 
           currentNumCards--;
+
+          // Refreshes window and redraws displayed cards
+          myCardTable.revalidate();
+          myCardTable.repaint();
 
       }
     }
