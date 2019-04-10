@@ -5,12 +5,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.*;
-
-import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
-
 
 //class cardGame.CardGameFramework  ----------------------------------------------------
 class CardGameFramework
@@ -125,24 +120,25 @@ class CardGameFramework
 
             myCardTable.humanLabels[i] = humanCard;
             myCardTable.pnlHumanHand.add(myCardTable.humanLabels[i]);
+
         }
 
         // Add two random cards in the play region (computer/human) and text
         // labels
-        JLabel compPlayCard;
-        JLabel humanPlayCard;
+        //JLabel compPlayCard;
+        //JLabel humanPlayCard;
 
-        compPlayCard = new JLabel(GUICard2.getIconBack());
-        myCardTable.playedCardLabels[0] = compPlayCard;
-        myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
+        //compPlayCard = new JLabel(GUICard2.getIconBack());
+        //myCardTable.playedCardLabels[0] = compPlayCard;
+        //myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
 
-        humanPlayCard = new JLabel(GUICard2.getIconBack());
-        myCardTable.playedCardLabels[1] = humanPlayCard;
-        myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
+        //humanPlayCard = new JLabel(GUICard2.getIconBack());
+        //myCardTable.playedCardLabels[1] = humanPlayCard;
+        //myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
 
         // Display label text for computer and player
-        myCardTable.pnlPlayArea.add(compFieldLabel);
-        myCardTable.pnlPlayArea.add(playerFieldLabel);
+        //myCardTable.pnlPlayArea.add(compFieldLabel);
+        //myCardTable.pnlPlayArea.add(playerFieldLabel);
 
         // Display everything to screen
         myCardTable.pack();
@@ -173,19 +169,28 @@ class CardGameFramework
       @Override
       public void actionPerformed(ActionEvent e) {
          // Play card from player hand
-          compPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(currentNumCards-1)));
-          myCardTable.playedCardLabels[0] = compPlayCard;
-          myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
-
-          humanPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(currentNumCards-1)));
-          myCardTable.playedCardLabels[1] = humanPlayCard;
-          myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
-
-          // Display label text for computer and player
-          myCardTable.pnlPlayArea.add(compFieldLabel);
-          myCardTable.pnlPlayArea.add(playerFieldLabel);
-
-          currentNumCards--;
+          if(myCardTable.playedCardLabels[0] != null){
+              myCardTable.pnlPlayArea.remove(compPlayCard);
+              myCardTable.pnlPlayArea.remove(humanPlayCard);
+          }
+          if (currentNumCards > 0)
+          {
+              compPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[0].inspectCard(currentNumCards - 1)));
+              myCardTable.playedCardLabels[0] = compPlayCard;
+              myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[0]);
+              humanPlayCard = new JLabel(GUICard2.getIcon(highCardGame.hand[1].inspectCard(currentNumCards - 1)));
+              myCardTable.playedCardLabels[1] = humanPlayCard;
+              myCardTable.pnlPlayArea.add(myCardTable.playedCardLabels[1]);
+              // Display label text for computer and player
+              myCardTable.pnlPlayArea.add(compFieldLabel);
+              myCardTable.pnlPlayArea.add(playerFieldLabel);
+              currentNumCards--;
+              // Refreshes window and redraws displayed cards
+              myCardTable.revalidate();
+              myCardTable.repaint();
+          }
+          else
+              handEmpty();
       }
     }
 
@@ -195,7 +200,7 @@ class CardGameFramework
    {
       @Override
       public void actionPerformed(ActionEvent e) {
-         // Reset round
+
       }
    }
 
@@ -212,8 +217,7 @@ class CardGameFramework
    // Prompts exit confirmation box when end game button is pressed
    private static void windowClose()
    {
-      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want" +
-              " " +
+      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
               "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
       if (exit == JOptionPane.YES_OPTION)
       {
@@ -221,6 +225,15 @@ class CardGameFramework
       }
    }
 
+    private static void handEmpty()
+    {
+        int exit = JOptionPane.showConfirmDialog(null, "No more cards left " +
+                "to play. Exit?","Exit", JOptionPane.YES_NO_OPTION);
+        if (exit == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
+    }
     public CardGameFramework( int numPacks, int numJokersPerPack,
                               int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
                               int numPlayers, int numCardsPerHand)
