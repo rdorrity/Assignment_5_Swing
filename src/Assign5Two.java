@@ -3,7 +3,7 @@ import javax.swing.border.*;
 import java.util.*;
 import java.awt.*;
 
-public class Assign5Two {
+class Assign5Two {
     //////////////////////////////////////////////////////////////////////////
     // members for Assig5 class. Cody is testing CardTable class here
     static int NUM_CARDS_PER_HAND = 7;
@@ -277,6 +277,13 @@ class Hand {
         int topPosition = numCards - 1;
         Card toPlay = new Card(myCards[topPosition].getValue(), myCards[topPosition].getSuit());
         myCards[topPosition] = null;
+        numCards--;
+        return toPlay;
+    }
+
+    public Card playCard(int index) {
+        Card toPlay = new Card(myCards[index].getValue(), myCards[index].getSuit());
+        myCards[index] = null;
         numCards--;
         return toPlay;
     }
