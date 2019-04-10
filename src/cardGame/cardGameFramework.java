@@ -1,13 +1,11 @@
 package cardGame;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.*;
-
 
 //class cardGame.CardGameFramework  ----------------------------------------------------
 class CardGameFramework
@@ -173,9 +171,20 @@ class CardGameFramework
    {
       @Override
       public void actionPerformed(ActionEvent e) {
+         windowClose();
+      }
+   }
+
+   // Prompts exit confirmation box when end game button is pressed
+   private static void windowClose()
+   {
+      int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want" +
+              " " +
+              "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
+      if (exit == JOptionPane.YES_OPTION)
+      {
          System.exit(0);
       }
-
    }
 
     public CardGameFramework( int numPacks, int numJokersPerPack,
