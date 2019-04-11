@@ -6,8 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class Assig5Three
-{
+public class Assig5Three {
 
 
     static int NUM_PLAYERS = 2;
@@ -20,8 +19,7 @@ public class Assig5Three
     static PlayButtonListener playButton;
     static ExitButtonListener exitButton;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
 
         CardGameFramework highCardGame = new CardGameFramework(
@@ -65,8 +63,7 @@ public class Assig5Three
         JLabel compCard;
         JLabel humanCard;
 
-        for(int i = 0; i < NUM_CARDS_PER_HAND; i++)
-        {
+        for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
             compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
             humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
@@ -91,8 +88,6 @@ class PlayButtonListener implements ActionListener {
     private int currentNumCards;
     private JLabel compPlayCard;
     private JLabel humanPlayCard;
-    //private Card comp;
-    //private Card human;
     private Card[] compWinning = new Card[52];
     private Card[] humanWinning = new Card[52];
     int i = 0, k = 0;
