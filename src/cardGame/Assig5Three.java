@@ -37,9 +37,7 @@ public class Assig5Three {
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add buttons for controlling the game
-        // JButton testButton2 = new JButton("Play Card");
         playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
-        // testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
 
@@ -56,18 +54,12 @@ public class Assig5Three {
         GUICard2.loadCardIcons();
 
         JLabel compCard;
-        // JLabel humanCard;
-        //JButton[] humanCard = new JButton[NUM_CARDS_PER_HAND];
         JButton humanCard;
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
-            // compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
             compCard = new JLabel(GUICard2.getIconBack());
-            // humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
             humanCard = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
-            // humanCard[i] = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
-            // humanCard[i].addActionListener(playButton);
             humanCard.addActionListener(playButton);
             humanCard.setActionCommand(String.valueOf(i));
             myCardTable.dealTable(compCard, humanCard);
@@ -121,15 +113,11 @@ class PlayButtonListener implements ActionListener {
 
             String selection = e.getActionCommand();
             int index = Integer.parseInt(selection);
-            System.out.println(index);
-            // human = highCardGame.getHand(1).playCard(currentNumCards - 1);
             human = highCardGame.getHand(1).playCard(index);
             humanPlayCard = new JLabel(GUICard2.getIcon(human));
 
             CardTable.playedCardLabels[1] = humanPlayCard;
             myCardTable.pnlPlayArea.add(CardTable.playedCardLabels[1]);
-            // myCardTable.pnlHumanHand.remove(currentNumCards-1);
-            // myCardTable.pnlHumanHand.remove(index);
             myCardTable.pnlHumanHand.getComponent(index).setEnabled(false);
 
             // Display label text for computer and player
@@ -496,12 +484,7 @@ class Hand {
 
     public Card playCard(int index) {
         Card toPlay = new Card(myCards[index].getValue(), myCards[index].getSuit());
-        // for (int i = index; i < myCards.length - 1; i++) {
-            // myCards[i] = myCards[i + 1];
-        // }
-        //System.arraycopy(myCards, index + 1, myCards, index,myCards.length - 1 - index);
-        // myCards[myCards.length - 1] = null;
-        // myCards[index] = null;
+        myCards[index] = null;
         numCards--;
         return toPlay;
     }
