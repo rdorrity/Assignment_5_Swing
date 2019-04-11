@@ -57,16 +57,17 @@ public class Assig5Three {
 
         JLabel compCard;
         // JLabel humanCard;
-        JButton humanCard;
+        JButton[] humanCard = new JButton[NUM_CARDS_PER_HAND];
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
             // compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
             compCard = new JLabel(GUICard2.getIconBack());
             // humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
-            humanCard = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
-            humanCard.addActionListener(playButton);
-            myCardTable.dealTable(compCard, humanCard);
+            humanCard[i] = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            humanCard[i].addActionListener(playButton);
+            humanCard[i].setActionCommand(String.valueOf(i));
+            myCardTable.dealTable(compCard, humanCard[i]);
         }
 
         // Display everything to screen
@@ -115,12 +116,16 @@ class PlayButtonListener implements ActionListener {
             myCardTable.pnlPlayArea.add(CardTable.playedCardLabels[0]);
             myCardTable.pnlComputerHand.remove(currentNumCards-1);
 
-            human = highCardGame.getHand(1).playCard(currentNumCards - 1);
+            String selection = e.getActionCommand();
+            int index = Integer.parseInt(selection);
+            // human = highCardGame.getHand(1).playCard(currentNumCards - 1);
+            human = highCardGame.getHand(1).playCard(index);
             humanPlayCard = new JLabel(GUICard2.getIcon(human));
 
             CardTable.playedCardLabels[1] = humanPlayCard;
             myCardTable.pnlPlayArea.add(CardTable.playedCardLabels[1]);
-            myCardTable.pnlHumanHand.remove(currentNumCards-1);
+            // myCardTable.pnlHumanHand.remove(currentNumCards-1);
+            myCardTable.pnlHumanHand.remove(index);
 
             // Display label text for computer and player
             myCardTable.pnlPlayArea.add(compFieldLabel);
