@@ -37,9 +37,9 @@ public class Assig5Three {
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Add buttons for controlling the game
-        JButton testButton2 = new JButton("Play Card");
+        // JButton testButton2 = new JButton("Play Card");
         playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
-        testButton2.addActionListener(playButton);
+        // testButton2.addActionListener(playButton);
 
         JButton testButton3 = new JButton("Reset Round");
 
@@ -47,7 +47,7 @@ public class Assig5Three {
         exitButton = new ExitButtonListener();
         testButton4.addActionListener(exitButton);
 
-        myCardTable.addControlButtons(testButton2);
+        // myCardTable.addControlButtons(testButton2);
         myCardTable.addControlButtons(testButton3);
         myCardTable.addControlButtons(testButton4);
 
@@ -65,6 +65,7 @@ public class Assig5Three {
             compCard = new JLabel(GUICard2.getIconBack());
             // humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
             humanCard = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            humanCard.addActionListener(playButton);
             myCardTable.dealTable(compCard, humanCard);
         }
 
