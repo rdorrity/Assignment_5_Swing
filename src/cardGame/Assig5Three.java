@@ -47,15 +47,15 @@ public class Assig5Three {
 
         // Create JLabels to hold ImageIcons
         // Add JLabels to JPanels
-        GUICard2.loadCardIcons();
+        GUICard.loadCardIcons();
 
         JLabel compCard;
         JButton humanCard;
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
-            compCard = new JLabel(GUICard2.getIconBack());
-            humanCard = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            compCard = new JLabel(GUICard.getIconBack());
+            humanCard = new JButton(GUICard.getIcon(highCardGame.getHand(1).inspectCard(i)));
             humanCard.addActionListener(playButton);
             humanCard.setActionCommand(String.valueOf(i));
             myCardTable.dealTable(compCard, humanCard);
@@ -103,7 +103,7 @@ class PlayButtonListener implements ActionListener {
         }
         if (currentNumCards > 0) {
             comp = highCardGame.getHand(0).playCard(currentNumCards - 1);
-            compPlayCard = new JLabel(GUICard2.getIcon(comp));
+            compPlayCard = new JLabel(GUICard.getIcon(comp));
 
             CardTable.playedCardLabels[0] = compPlayCard;
             myCardTable.pnlPlayArea.add(CardTable.playedCardLabels[0]);
@@ -112,7 +112,7 @@ class PlayButtonListener implements ActionListener {
             String selection = e.getActionCommand();
             int index = Integer.parseInt(selection);
             human = highCardGame.getHand(1).playCard(index);
-            humanPlayCard = new JLabel(GUICard2.getIcon(human));
+            humanPlayCard = new JLabel(GUICard.getIcon(human));
 
             CardTable.playedCardLabels[1] = humanPlayCard;
             myCardTable.pnlPlayArea.add(CardTable.playedCardLabels[1]);
@@ -148,12 +148,12 @@ class PlayButtonListener implements ActionListener {
 
     private void playerWins() {
         JOptionPane.showMessageDialog(null, "Player wins!" +
-            "\nYour points: " + humanScore + " Computer points: " + compScore);
+                "\nYour points: " + humanScore + " Computer points: " + compScore);
     }
 
     private void compWins() {
         JOptionPane.showMessageDialog(null, "You lose!" +
-            "\nYour points: " + humanScore + " Computer points: " + compScore);
+                "\nYour points: " + humanScore + " Computer points: " + compScore);
     }
 
 
@@ -165,8 +165,8 @@ class PlayButtonListener implements ActionListener {
         else
             winner = "You Lose!";
         JOptionPane.showMessageDialog(null, "Game Over" +
-            "\n" + winner + "\n--Final Score--\nYour points: " +
-            humanScore + " Computer points: " + compScore);
+                "\n" + winner + "\n--Final Score--\nYour points: " +
+                humanScore + " Computer points: " + compScore);
         System.exit(0);
     }
 
@@ -719,8 +719,6 @@ class CardTable extends JFrame {
     public void dealTable(JLabel compCard, JButton humanCard) {
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
-            // used to check computers hand. CARDS FACE UP //////////////////////////////
-            //compCard = new JLabel(GUICard2.getIconBack());
             computerLabels[i] = compCard;
             pnlComputerHand.add(computerLabels[i]);
 
@@ -739,7 +737,7 @@ class CardTable extends JFrame {
 
 }
 
-class GUICard2 {
+class GUICard {
 
     private static Icon[][] iconCards = new ImageIcon[14][4];
     private static Icon iconBack;
