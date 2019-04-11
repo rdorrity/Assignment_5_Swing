@@ -39,14 +39,10 @@ public class Assig5Three {
         // Add buttons for controlling the game
         playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
 
-        JButton testButton3 = new JButton("Reset Round");
-
         JButton testButton4 = new JButton("End Game");
         exitButton = new ExitButtonListener();
         testButton4.addActionListener(exitButton);
 
-        // myCardTable.addControlButtons(testButton2);
-        myCardTable.addControlButtons(testButton3);
         myCardTable.addControlButtons(testButton4);
 
         // Create JLabels to hold ImageIcons
@@ -160,8 +156,6 @@ class PlayButtonListener implements ActionListener {
             "\nYour points: " + humanScore + " Computer points: " + compScore);
     }
 
-
-
     private static void handEmpty() {
         int replay = JOptionPane.showConfirmDialog(null, "No more cards left " +
                 "to play. Play again?","Game Over", JOptionPane.YES_NO_OPTION);
@@ -171,15 +165,6 @@ class PlayButtonListener implements ActionListener {
             System.exit(0);
     }
 
-}
-
-// Resets round when pressed, clears field and deals cards to player and
-// computer
-class ResetButtonListener implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
 
 // Exits program when pressed, ideally with another pop up confirmation
