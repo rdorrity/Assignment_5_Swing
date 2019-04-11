@@ -6,6 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+/**
+ * Module 5 Phase 3 - Crouching Card Player, Hidden Computer Hand
+ * A GUI-based card game where players are dealt random cards to their hand,
+ * and then draw and play a single card against the computer. Whoever has the
+ * card with the highest rank wins.
+ * Game is played for seven rounds, and final score is displayed at the end.
+ * @author Sara Kazemi, Ryan Dorrity, Nathan Warren-Acord, Cody Young
+ * SCSI Logic
+ * CST 338
+ * 2019-04-10
+ */
+
 public class Assig5Three {
 
 
