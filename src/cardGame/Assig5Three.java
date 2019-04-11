@@ -57,17 +57,20 @@ public class Assig5Three {
 
         JLabel compCard;
         // JLabel humanCard;
-        JButton[] humanCard = new JButton[NUM_CARDS_PER_HAND];
+        //JButton[] humanCard = new JButton[NUM_CARDS_PER_HAND];
+        JButton humanCard;
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
             // compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
             compCard = new JLabel(GUICard2.getIconBack());
             // humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
-            humanCard[i] = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
-            humanCard[i].addActionListener(playButton);
-            humanCard[i].setActionCommand(String.valueOf(i));
-            myCardTable.dealTable(compCard, humanCard[i]);
+            humanCard = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            // humanCard[i] = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            // humanCard[i].addActionListener(playButton);
+            humanCard.addActionListener(playButton);
+            humanCard.setActionCommand(String.valueOf(i));
+            myCardTable.dealTable(compCard, humanCard);
         }
 
         // Display everything to screen
@@ -126,7 +129,8 @@ class PlayButtonListener implements ActionListener {
             CardTable.playedCardLabels[1] = humanPlayCard;
             myCardTable.pnlPlayArea.add(CardTable.playedCardLabels[1]);
             // myCardTable.pnlHumanHand.remove(currentNumCards-1);
-            myCardTable.pnlHumanHand.remove(index);
+            // myCardTable.pnlHumanHand.remove(index);
+            myCardTable.pnlHumanHand.getComponent(index).setEnabled(false);
 
             // Display label text for computer and player
             myCardTable.pnlPlayArea.add(compFieldLabel);
@@ -497,7 +501,7 @@ class Hand {
         // }
         //System.arraycopy(myCards, index + 1, myCards, index,myCards.length - 1 - index);
         // myCards[myCards.length - 1] = null;
-        myCards[index] = null;
+        // myCards[index] = null;
         numCards--;
         return toPlay;
     }
