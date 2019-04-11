@@ -56,12 +56,15 @@ public class Assig5Three {
         GUICard2.loadCardIcons();
 
         JLabel compCard;
-        JLabel humanCard;
+        // JLabel humanCard;
+        JButton humanCard;
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
-            compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
-            humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            // compCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(0).inspectCard(i)));
+            compCard = new JLabel(GUICard2.getIconBack());
+            // humanCard = new JLabel(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
+            humanCard = new JButton(GUICard2.getIcon(highCardGame.getHand(1).inspectCard(i)));
             myCardTable.dealTable(compCard, humanCard);
         }
 
@@ -644,7 +647,7 @@ class CardTable extends JFrame {
     public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea, controlPanel;
 
     static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
-    static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
+    static JButton[] humanLabels = new JButton[NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels  = new JLabel[NUM_PLAYERS];
     static JLabel[] playLabelText  = new JLabel[NUM_PLAYERS];
 
@@ -714,7 +717,7 @@ class CardTable extends JFrame {
         controlPanel.add(Box.createRigidArea(new Dimension(30, 0)));
     }
 
-    public void dealTable(JLabel compCard, JLabel humanCard) {
+    public void dealTable(JLabel compCard, JButton humanCard) {
 
         for(int i = 0; i < NUM_CARDS_PER_HAND; i++) {
             // used to check computers hand. CARDS FACE UP //////////////////////////////
