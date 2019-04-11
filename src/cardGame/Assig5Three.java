@@ -140,7 +140,7 @@ class PlayButtonListener implements ActionListener {
                 playerWins();
             }
         }
-        else
+        if (currentNumCards == 0)
             handEmpty();
     }
 
@@ -183,9 +183,9 @@ class ExitButtonListener implements ActionListener {
 
     // Prompts exit confirmation box when end game button is pressed
     private static void windowClose() {
-        int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
+        int replay = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
                 "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
-        if (exit == JOptionPane.YES_OPTION)
+        if (replay == JOptionPane.YES_OPTION)
             System.exit(0);
     }
 }
