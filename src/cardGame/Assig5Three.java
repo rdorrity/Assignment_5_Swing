@@ -118,6 +118,7 @@ class PlayButtonListener implements ActionListener {
 
             String selection = e.getActionCommand();
             int index = Integer.parseInt(selection);
+            System.out.println(index);
             // human = highCardGame.getHand(1).playCard(currentNumCards - 1);
             human = highCardGame.getHand(1).playCard(index);
             humanPlayCard = new JLabel(GUICard2.getIcon(human));
@@ -491,6 +492,11 @@ class Hand {
 
     public Card playCard(int index) {
         Card toPlay = new Card(myCards[index].getValue(), myCards[index].getSuit());
+        // for (int i = index; i < myCards.length - 1; i++) {
+            // myCards[i] = myCards[i + 1];
+        // }
+        //System.arraycopy(myCards, index + 1, myCards, index,myCards.length - 1 - index);
+        // myCards[myCards.length - 1] = null;
         myCards[index] = null;
         numCards--;
         return toPlay;
