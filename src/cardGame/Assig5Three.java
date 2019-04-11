@@ -15,7 +15,6 @@ public class Assig5Three {
     static int numJokersPerPack = 2;
     static int numUnusedCardsPerPack = 0;
     static Card[] unusedCardsPerPack = null;
-    static CardGameFramework highCardGame;
     static PlayButtonListener playButton;
     static ExitButtonListener exitButton;
 
@@ -36,10 +35,6 @@ public class Assig5Three {
         myCardTable.setLayout(new BoxLayout(myCardTable.getContentPane(), BoxLayout.Y_AXIS));
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        myCardTable.setTableBorders();
-        myCardTable.setPanelSizes();
-        myCardTable.setControlPanels();
 
         // Add buttons for controlling the game
         JButton testButton2 = new JButton("Play Card");
@@ -674,6 +669,9 @@ class CardTable extends JFrame {
         this.numCardsPerHand = numCardsPerHand;
         this.numPlayers = numPlayers;
         this.gameFramework = gameFramework;
+        setTableBorders();
+        setPanelSizes();
+        setControlPanels();
     }
 
     public void setTableBorders() {
