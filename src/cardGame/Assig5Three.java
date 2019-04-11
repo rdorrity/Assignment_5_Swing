@@ -39,14 +39,10 @@ public class Assig5Three {
         // Add buttons for controlling the game
         playButton = new PlayButtonListener(highCardGame, myCardTable, NUM_CARDS_PER_HAND);
 
-        JButton testButton3 = new JButton("Reset Round");
-
         JButton testButton4 = new JButton("End Game");
         exitButton = new ExitButtonListener();
         testButton4.addActionListener(exitButton);
 
-        // myCardTable.addControlButtons(testButton2);
-        myCardTable.addControlButtons(testButton3);
         myCardTable.addControlButtons(testButton4);
 
         // Create JLabels to hold ImageIcons
@@ -162,24 +158,18 @@ class PlayButtonListener implements ActionListener {
 
 
 
-    private static void handEmpty() {
-        int replay = JOptionPane.showConfirmDialog(null, "No more cards left " +
-                "to play. Play again?","Game Over", JOptionPane.YES_NO_OPTION);
-        if (replay == JOptionPane.YES_OPTION)
-            return;
-        if (replay == JOptionPane.NO_OPTION)
-            System.exit(0);
+    private void handEmpty() {
+        String winner;
+        if (humanScore > compScore)
+            winner = "You Win!";
+        else
+            winner = "You Lose!";
+        JOptionPane.showMessageDialog(null, "Game Over" +
+            "\n" + winner + "\n--Final Score--\nYour points: " +
+            humanScore + " Computer points: " + compScore);
+        System.exit(0);
     }
 
-}
-
-// Resets round when pressed, clears field and deals cards to player and
-// computer
-class ResetButtonListener implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
 
 // Exits program when pressed, ideally with another pop up confirmation
@@ -192,12 +182,13 @@ class ExitButtonListener implements ActionListener {
 
     // Prompts exit confirmation box when end game button is pressed
     private static void windowClose() {
-        int replay = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
+        int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
                 "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
-        if (replay == JOptionPane.YES_OPTION)
+        if (exit == JOptionPane.YES_OPTION)
             System.exit(0);
     }
 }
+
 //class cardGame.CardGameFramework  ----------------------------------------------------
 class CardGameFramework {
     static int MAX_PLAYERS = 2;
