@@ -84,7 +84,9 @@ class PlayButtonListener implements ActionListener {
     private JLabel compPlayCard;
     private JLabel humanPlayCard;
     private Card[] compWinning = new Card[52];
+    private int compScore = 0;
     private Card[] humanWinning = new Card[52];
+    private int humanScore = 0;
     int i = 0, k = 0;
 
     public PlayButtonListener(CardGameFramework highCardGame, CardTable myCardTable, int numCardsPerHand) {
@@ -132,11 +134,15 @@ class PlayButtonListener implements ActionListener {
             if (Card.firstCardGreater(comp, human)) {
                 compWinning[i++] = comp;
                 compWinning[i++] = human;
-               compWins();
+                compScore += Card.cardTotalValue(comp);
+                compScore += Card.cardTotalValue(human);
+                compWins();
             }
             else {
                 humanWinning[k++] = comp;
                 humanWinning[k++] = human;
+                humanScore += Card.cardTotalValue(comp);
+                humanScore += Card.cardTotalValue(human);
                 playerWins();
             }
         }
@@ -144,24 +150,27 @@ class PlayButtonListener implements ActionListener {
             handEmpty();
     }
 
-    private static void playerWins()
-    {
-        JOptionPane.showMessageDialog(null, "Player wins!");
+    private void playerWins() {
+        JOptionPane.showMessageDialog(null, "Player wins!" +
+            "\nYour points: " + humanScore + " Computer points: " + compScore);
     }
 
-    private static void compWins()
-    {
-        JOptionPane.showMessageDialog(null, "You lose!");
+    private void compWins() {
+        JOptionPane.showMessageDialog(null, "You lose!" +
+            "\nYour points: " + humanScore + " Computer points: " + compScore);
     }
 
 
 
     private static void handEmpty() {
-        int exit = JOptionPane.showConfirmDialog(null, "No more cards left " +
+        int replay = JOptionPane.showConfirmDialog(null, "No more cards left " +
                 "to play. Play again?","Game Over", JOptionPane.YES_NO_OPTION);
-        if (exit == JOptionPane.YES_OPTION)
+        if (replay == JOptionPane.YES_OPTION)
+            return;
+        if (replay == JOptionPane.NO_OPTION)
             System.exit(0);
     }
+
 }
 
 // Resets round when pressed, clears field and deals cards to player and
@@ -430,7 +439,7 @@ class Card {
         return cardTotalValue(first) > cardTotalValue(second);
     }
 
-    private static int cardTotalValue(Card card) {
+    public static int cardTotalValue(Card card) {
         int totalValue = valueRanks.get(card.value) * 10;
         totalValue += Suit.valueOf(card.getSuit().toString()).ordinal();
         return totalValue;
