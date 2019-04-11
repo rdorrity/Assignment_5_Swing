@@ -156,13 +156,18 @@ class PlayButtonListener implements ActionListener {
             "\nYour points: " + humanScore + " Computer points: " + compScore);
     }
 
-    private static void handEmpty() {
-        int replay = JOptionPane.showConfirmDialog(null, "No more cards left " +
-                "to play. Play again?","Game Over", JOptionPane.YES_NO_OPTION);
-        if (replay == JOptionPane.YES_OPTION)
-            return;
-        if (replay == JOptionPane.NO_OPTION)
-            System.exit(0);
+
+
+    private void handEmpty() {
+        String winner;
+        if (humanScore > compScore)
+            winner = "You Win!";
+        else
+            winner = "You Lose!";
+        JOptionPane.showMessageDialog(null, "Game Over" +
+            "\n" + winner + "\n--Final Score--\nYour points: " +
+            humanScore + " Computer points: " + compScore);
+        System.exit(0);
     }
 
 }
@@ -177,12 +182,13 @@ class ExitButtonListener implements ActionListener {
 
     // Prompts exit confirmation box when end game button is pressed
     private static void windowClose() {
-        int replay = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
+        int exit = JOptionPane.showConfirmDialog(null, "Are you sure you want " +
                 "to exit the game?","Exit", JOptionPane.YES_NO_OPTION);
-        if (replay == JOptionPane.YES_OPTION)
+        if (exit == JOptionPane.YES_OPTION)
             System.exit(0);
     }
 }
+
 //class cardGame.CardGameFramework  ----------------------------------------------------
 class CardGameFramework {
     static int MAX_PLAYERS = 2;
